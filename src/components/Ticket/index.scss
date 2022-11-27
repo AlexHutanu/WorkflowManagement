@@ -1,0 +1,12 @@
+.ticket {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: .2rem solid red;
+  width: 15rem;
+  height: 10rem;
+
+  & p {
+    font-size: 3rem;
+  }
+}
