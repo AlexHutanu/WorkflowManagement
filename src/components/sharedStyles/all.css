@@ -1,0 +1,212 @@
+.home-page {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  flex-direction: row;
+}
+.home-page__section-1 {
+  height: 100%;
+  width: 20%;
+}
+.home-page__section-1__desktop-nav-bar {
+  height: 100%;
+  width: 100%;
+}
+.home-page__section-2 {
+  height: 100%;
+  width: 100%;
+}
+.home-page__section-2__header {
+  height: 10%;
+  width: 100%;
+}
+.home-page__section-2__board {
+  height: 90%;
+  width: 100%;
+}
+.home-page__section-3 {
+  height: 100%;
+  width: 20%;
+}
+.home-page__section-3__activity {
+  height: 100%;
+  width: 100%;
+}
+
+.activity {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border: 0.2rem solid red;
+}
+.activity p {
+  font-size: 5rem;
+}
+
+.board {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 5rem;
+  width: 100%;
+  height: 100%;
+  border: 0.2rem solid red;
+}
+.board__tickets {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.board p {
+  font-size: 5rem;
+}
+
+.desktop-nav-bar {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  border: 0.2rem solid red;
+}
+.desktop-nav-bar__upper-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 10%;
+  border-bottom: 2px solid grey;
+}
+.desktop-nav-bar__upper-section__title {
+  font-size: 2rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.desktop-nav-bar__lower-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  height: 90%;
+}
+.desktop-nav-bar__lower-section__profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+.desktop-nav-bar__lower-section__profile__picture img {
+  border-radius: 50%;
+  width: 12rem;
+  height: 12rem;
+  object-fit: cover;
+}
+.desktop-nav-bar__lower-section__profile__name {
+  font-size: 2rem;
+}
+.desktop-nav-bar__lower-section__profile__mail-address {
+  color: grey;
+  font-size: 1.5rem;
+}
+.desktop-nav-bar__lower-section__links {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.desktop-nav-bar__lower-section__links__element {
+  transition: 0.2s;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.desktop-nav-bar__lower-section__links__element__name {
+  font-size: 2.5rem;
+}
+.desktop-nav-bar__lower-section__links__element:hover {
+  transform: translateX(0.4rem);
+  color: #42526E;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border: 0.2rem solid red;
+}
+.header p {
+  font-size: 5rem;
+}
+
+.ticket {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0.2rem solid red;
+  width: 15rem;
+  height: 10rem;
+}
+.ticket p {
+  font-size: 3rem;
+}
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  vertical-align: baseline;
+  font-size: 10px;
+  font-family: "Chillax", sans-serif;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: "";
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/*# sourceMappingURL=all.css.map */
