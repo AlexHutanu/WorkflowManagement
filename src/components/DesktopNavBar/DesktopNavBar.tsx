@@ -20,10 +20,10 @@ export default () => {
                   <img src="profile_picture.jpg" alt="profile picture"/>
                </div>
                <p className="desktop-nav-bar__lower-section__profile__name">
-                  Alex Hutanu
+                  James Smith
                </p>
                <p className="desktop-nav-bar__lower-section__profile__mail-address">
-                  alexandru.hutanu@amdaris.com
+                  james.smith@domain.com
                </p>
             </div>
             <div className="desktop-nav-bar__lower-section__links">
@@ -42,7 +42,7 @@ export default () => {
                <div className="desktop-nav-bar__lower-section__links__element">
                   <TicketIcon />
                   <p className="desktop-nav-bar__lower-section__links__element__name">
-                     Tickets
+                     Tasks
                   </p>
                </div>
             </div>

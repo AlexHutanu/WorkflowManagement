@@ -17,7 +17,7 @@
   width: 100%;
 }
 .home-page__section-2__header {
-  height: 10%;
+  height: 8%;
   width: 100%;
 }
 .home-page__section-2__board {
@@ -39,7 +39,7 @@
   justify-content: center;
   width: 100%;
   height: 100%;
-  border: 0.2rem solid red;
+  border: 2px solid grey;
 }
 .activity p {
   font-size: 5rem;
@@ -53,7 +53,7 @@
   gap: 5rem;
   width: 100%;
   height: 100%;
-  border: 0.2rem solid red;
+  border: 0.5px solid grey;
 }
 .board__tickets {
   display: flex;
@@ -73,14 +73,14 @@
   flex-direction: column;
   width: 100%;
   height: 100%;
-  border: 0.2rem solid red;
+  border: 0.5px solid grey;
 }
 .desktop-nav-bar__upper-section {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 10%;
+  height: 7.9%;
   border-bottom: 2px solid grey;
 }
 .desktop-nav-bar__upper-section__title {
@@ -138,13 +138,16 @@
 .header {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   width: 100%;
   height: 100%;
-  border: 0.2rem solid red;
+  border: 0.5px solid grey;
 }
-.header p {
-  font-size: 5rem;
+.header__greet {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 3rem;
+  width: 25rem;
 }
 
 .ticket {
@@ -157,6 +160,20 @@
 }
 .ticket p {
   font-size: 3rem;
+}
+
+.search-bar {
+  display: flex;
+  margin: 1rem;
+}
+.search-bar input {
+  font-size: 2rem;
+  border: 0.5px solid grey;
+  border-radius: 1rem;
+}
+.search-bar svg {
+  width: 2rem;
+  height: 2rem;
 }
 
 html, body, div, span, applet, object, iframe,

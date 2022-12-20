@@ -1,0 +1,15 @@
+.search-bar {
+  display: flex;
+  margin: 1rem;
+
+  & input {
+    font-size: 2rem;
+    border: .5px solid grey;
+    border-radius: 1rem;
+  }
+
+  & svg {
+    width: 2rem;
+    height: 2rem;
+  }
+}
