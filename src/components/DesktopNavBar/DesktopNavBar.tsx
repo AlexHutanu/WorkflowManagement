@@ -36,7 +36,7 @@ export default () => {
                <div className="desktop-nav-bar__lower-section__links__element">
                   <ProjectIcon />
                   <p className="desktop-nav-bar__lower-section__links__element__name">
-                     Projects
+                     Boards
                   </p>
                </div>
                <div className="desktop-nav-bar__lower-section__links__element">

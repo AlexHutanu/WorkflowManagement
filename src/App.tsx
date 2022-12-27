@@ -8,8 +8,9 @@ export default () => {
    return (
       <Router>
          <Routes>
-            <Route element={<AuthPage />} path={'/'} />
-            <Route element={<HomePage />} path={'/homepage'} />
+            <Route element={<AuthPage />} path={'/login'} />
+            <Route element={<HomePage />} path={'/'} />
+
          </Routes>
       </Router>
    )
