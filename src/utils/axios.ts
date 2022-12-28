@@ -1,10 +1,11 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 import { HttpMethods } from '../constants/httpsMethods'
+import { IBoard } from '../interfaces/Board'
 import { getFromLocalStorage } from './localStorage'
 
 
-interface IAxiosCallReturn {
-   data: unknown;
+interface IAxiosCallReturn<T> {
+   data: T | null;
    error: boolean;
 }
 
@@ -14,8 +15,8 @@ interface IAxiosCallOptions<T> {
    requestBody?: T
 }
 
-export const callAxios = async <T = unknown>(URL: string, options: IAxiosCallOptions<T>): Promise<IAxiosCallReturn> => {
-   let data: unknown = null
+export const callAxios = async <K, T = unknown>(URL: string, options: IAxiosCallOptions<T>): Promise<IAxiosCallReturn<K>> => {
+   let data: K;
    let response: AxiosResponse;
    try {
       const { auth, method, requestBody } = options;
@@ -28,19 +29,19 @@ export const callAxios = async <T = unknown>(URL: string, options: IAxiosCallOpt
 
       switch (method) {
          case HttpMethods.GET:
-            response = await axios.get(URL, axiosConfig)
+            response = await axios.get<K>(URL, axiosConfig)
             break;
          case HttpMethods.POST:
-            response = await axios.post(URL, requestBody, axiosConfig)
+            response = await axios.post<K>(URL, requestBody, axiosConfig)
             break
          case HttpMethods.PATCH:
-            response = await axios.patch(URL, requestBody, axiosConfig)
+            response = await axios.patch<K>(URL, requestBody, axiosConfig)
             break;
          case HttpMethods.PUT:
-            response = await axios.put(URL, requestBody, axiosConfig)
+            response = await axios.put<K>(URL, requestBody, axiosConfig)
             break;
          case HttpMethods.DELETE:
-            response = await axios.delete(URL, axiosConfig);
+            response = await axios.delete<K>(URL, axiosConfig);
             break;
          default:
             throw new Error(`Invalid method`);
@@ -49,7 +50,6 @@ export const callAxios = async <T = unknown>(URL: string, options: IAxiosCallOpt
 
       return {data, error: false}
    } catch (err: unknown) {
-      data = err
-      return {data, error: true}
+      return {data: null, error: true}
    }
 }

@@ -1,26 +1,31 @@
-.board {
+.boards {
   display: flex;
   justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  gap: 5rem;
-  width: 100%;
-  height: 100%;
-  border: .5px solid grey;
+  flex-wrap: wrap;
+  gap: 2rem;
 
-  &__tickets {
+
+  &-wrapper {
+    overflow-y: scroll;
+    padding: 5rem 0;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 50%;
-    gap: 1rem;
-    flex-wrap: wrap;
+    gap: 5rem;
+    width: 100%;
+    height: 90%;
 
-    &__element {
+    &::-webkit-scrollbar {
+      width: 10px;
     }
   }
 
-  & p {
-    font-size: 5rem;
+  &__board {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 20rem;
+    height: 20rem;
+    border-radius: 2rem;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   }
 }

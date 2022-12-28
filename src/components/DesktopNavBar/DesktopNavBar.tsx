@@ -1,11 +1,14 @@
+import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import BoardIcon from '../../icons/BoardIcon';
 import ProjectIcon from '../../icons/ProjectIcon'
 import TicketIcon from '../../icons/TicketIcon'
+import { setBoards, setDashboard, setTasks } from '../../redux/homepageTab'
 
 export default () => {
 
    const navigate = useNavigate()
+   const dispatch = useDispatch()
 
    return <>
       <div className="desktop-nav-bar">
@@ -29,19 +32,31 @@ export default () => {
             <div className="desktop-nav-bar__lower-section__links">
                <div className="desktop-nav-bar__lower-section__links__element">
                   <BoardIcon />
-                  <p className="desktop-nav-bar__lower-section__links__element__name">
+                  <p className="desktop-nav-bar__lower-section__links__element__name"
+                     onClick={() => {
+                        dispatch(setDashboard())
+                     }
+                     }>
                      Dashboard
                   </p>
                </div>
                <div className="desktop-nav-bar__lower-section__links__element">
                   <ProjectIcon />
-                  <p className="desktop-nav-bar__lower-section__links__element__name">
+                  <p className="desktop-nav-bar__lower-section__links__element__name"
+                     onClick={() => {
+                        dispatch(setBoards())
+                     }
+                     }>
                      Boards
                   </p>
                </div>
                <div className="desktop-nav-bar__lower-section__links__element">
                   <TicketIcon />
-                  <p className="desktop-nav-bar__lower-section__links__element__name">
+                  <p className="desktop-nav-bar__lower-section__links__element__name"
+                     onClick={() => {
+                        dispatch(setTasks())
+                     }
+                     }>
                      Tasks
                   </p>
                </div>

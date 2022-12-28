@@ -2,6 +2,7 @@
   display: flex;
   height: 100vh;
   width: 100vw;
+  overflow-y: hidden;
   flex-direction: row;
 }
 .home-page__section-1 {
@@ -39,32 +40,37 @@
   justify-content: center;
   width: 100%;
   height: 100%;
-  border: 2px solid grey;
 }
 .activity p {
   font-size: 5rem;
 }
 
-.board {
+.boards {
   display: flex;
   justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+.boards-wrapper {
+  overflow-y: scroll;
+  padding: 5rem 0;
+  display: flex;
   gap: 5rem;
   width: 100%;
-  height: 100%;
-  border: 0.5px solid grey;
+  height: 90%;
 }
-.board__tickets {
+.boards-wrapper::-webkit-scrollbar {
+  width: 10px;
+}
+.boards__board {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 50%;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-.board p {
-  font-size: 5rem;
+  width: 20rem;
+  height: 20rem;
+  border-radius: 2rem;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
 .desktop-nav-bar {
@@ -73,7 +79,6 @@
   flex-direction: column;
   width: 100%;
   height: 100%;
-  border: 0.5px solid grey;
 }
 .desktop-nav-bar__upper-section {
   display: flex;
@@ -81,7 +86,6 @@
   align-items: center;
   width: 100%;
   height: 7.9%;
-  border-bottom: 2px solid grey;
 }
 .desktop-nav-bar__upper-section__title {
   font-size: 2rem;
@@ -141,7 +145,6 @@
   justify-content: space-between;
   width: 100%;
   height: 100%;
-  border: 0.5px solid grey;
 }
 .header__greet {
   display: flex;
@@ -168,7 +171,6 @@
 }
 .search-bar input {
   font-size: 2rem;
-  border: 0.5px solid grey;
   border-radius: 1rem;
 }
 .search-bar svg {
@@ -197,6 +199,7 @@ time, mark, audio, video {
   font-size: 10px;
   font-family: "Chillax", sans-serif;
   color: rgba(0, 0, 0, 0.8);
+  box-sizing: content-box;
 }
 
 article, aside, details, figcaption, figure,
