@@ -1,5 +1,5 @@
 export * from "./Activity";
-export * from "./Board";
+export * from "./BoardsList";
 export * from "./DesktopNavBar";
 export * from "./Forms/AuthForm";
 export * from "./Header";

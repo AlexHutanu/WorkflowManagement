@@ -1,10 +1,10 @@
 import {configureStore} from '@reduxjs/toolkit';
 
-import homepageTab from './homepageTab';
+import boardId from './boardId';
 
 const store = configureStore({
    reducer: {
-      homepageTab
+      boardId
    }
 })
 

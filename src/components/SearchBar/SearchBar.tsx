@@ -7,7 +7,6 @@ export default () => {
 
    const [ userInput, setUserInput ] = useState<string>('')
 
-   console.log(userInput)
    return <>
       <div className="search-bar">
          <Search>

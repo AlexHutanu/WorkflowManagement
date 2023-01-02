@@ -1,19 +1,16 @@
-import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import BoardIcon from '../../icons/BoardIcon';
 import ProjectIcon from '../../icons/ProjectIcon'
 import TicketIcon from '../../icons/TicketIcon'
-import { setBoards, setDashboard, setTasks } from '../../redux/homepageTab'
 
 export default () => {
 
    const navigate = useNavigate()
-   const dispatch = useDispatch()
 
    return <>
       <div className="desktop-nav-bar">
          <div className="desktop-nav-bar__upper-section">
-            <p className="desktop-nav-bar__upper-section__title" onClick={() => navigate('/homepage')}>
+            <p className="desktop-nav-bar__upper-section__title" onClick={() => navigate('/')}>
                Workflow manager
             </p>
          </div>
@@ -33,9 +30,7 @@ export default () => {
                <div className="desktop-nav-bar__lower-section__links__element">
                   <BoardIcon />
                   <p className="desktop-nav-bar__lower-section__links__element__name"
-                     onClick={() => {
-                        dispatch(setDashboard())
-                     }
+                     onClick={() => navigate('/')
                      }>
                      Dashboard
                   </p>
@@ -43,9 +38,7 @@ export default () => {
                <div className="desktop-nav-bar__lower-section__links__element">
                   <ProjectIcon />
                   <p className="desktop-nav-bar__lower-section__links__element__name"
-                     onClick={() => {
-                        dispatch(setBoards())
-                     }
+                     onClick={() => navigate('/boards')
                      }>
                      Boards
                   </p>
@@ -53,9 +46,7 @@ export default () => {
                <div className="desktop-nav-bar__lower-section__links__element">
                   <TicketIcon />
                   <p className="desktop-nav-bar__lower-section__links__element__name"
-                     onClick={() => {
-                        dispatch(setTasks())
-                     }
+                     onClick={() => navigate('/tickets')
                      }>
                      Tasks
                   </p>
