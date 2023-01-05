@@ -14,30 +14,32 @@ export default () => {
       },
       onSubmit: async (values) => {
 
-         const {data, error} = await callAxios<IBoard, ICreateBoard>(`${API_BASE_URL}/boards`, {
+         const { data, error } = await callAxios<IBoard, ICreateBoard>(`${API_BASE_URL}/boards`, {
             method: HttpMethods.POST,
-            requestBody: {...values, owner: "fwefwe"}
+            requestBody: { ...values, owner: 'fwefwe' }
          })
       }
    })
 
 
    return (
-      <form onSubmit={formik.handleSubmit}>
-         <label htmlFor="name">Name</label>
-         <input
-            name = "name"
-            onChange = {formik.handleChange}
-            value = {formik.values.name}
-         />
-         <label htmlFor="description">Description</label>
-         <input
-            name = "description"
-            onChange={formik.handleChange}
-            value = {formik.values.description}
-         />
+      <div className="board-form">
+         <form onSubmit={formik.handleSubmit}>
+            <label htmlFor="name">Name</label>
+            <input
+               name="name"
+               onChange={formik.handleChange}
+               value={formik.values.name}
+            />
+            <label htmlFor="description">Description</label>
+            <input
+               name="description"
+               onChange={formik.handleChange}
+               value={formik.values.description}
+            />
 
-         <button type="submit">Submit</button>
-      </form>
+            <button type="submit">Submit</button>
+         </form>
+      </div>
    )
 }

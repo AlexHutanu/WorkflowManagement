@@ -1,0 +1,19 @@
+.board-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+  & form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    gap: .3rem;
+
+    & input {
+      margin-bottom: 1rem;
+    }
+  }
+}

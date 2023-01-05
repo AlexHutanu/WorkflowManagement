@@ -1,6 +1,5 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
+import axios, { AxiosResponse } from 'axios'
 import { HttpMethods } from '../constants/httpsMethods'
-import { IBoard } from '../interfaces/Board'
 import { getFromLocalStorage } from './localStorage'
 
 

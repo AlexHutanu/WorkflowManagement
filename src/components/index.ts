@@ -5,4 +5,4 @@ export * from "./Forms/AuthForm";
 export * from "./Header";
 export * from "./NavBar";
 export * from "./SearchBar";
-export * from "./Ticket";
+export * from "./Tickets";

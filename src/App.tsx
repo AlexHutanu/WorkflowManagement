@@ -5,7 +5,7 @@ import BoardPage from './pages/BoardPage'
 import Boards from './pages/BoardsListPage'
 import AuthPage from './pages/AuthPage';
 import DashboardPage from './pages/DashboardPage';
-import TicketsPage from './pages/TicketsPage/TicketsPage'
+import TicketsPage from './pages/TasksPage/TasksPage'
 
 export default () => {
    return (
