@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import SignInForm from '../../components/Forms/SignInForm'
+import SignUpForm from '../../components/Forms/SignUpForm'
 import { HttpMethods } from '../../constants/httpsMethods'
 import { UrlPaths } from '../../constants/urlPaths'
 import { callAxios } from '../../utils/axios'
@@ -14,7 +16,7 @@ export default () => {
 
    const navigate = useNavigate()
 
-   useEffect(() => {
+/*   useEffect(() => {
       (async () => {
 
          await callAxios("localhost:5077", {
@@ -25,13 +27,13 @@ export default () => {
 
          login && navigate(UrlPaths.HOMEPAGE);
       })()
-   }, [login])
+   }, [login])*/
 
-   return <>
-      <button type="submit" onClick={() => {
-      setToLocalStorage({key: "token", value: "jwhfbweiufw"})
-         setLogin(true)
-      }
-      }>Login</button>
-   </>
+   return (
+      <div className="auth-page">
+         <SignUpForm />
+         <SignInForm />
+      </div>
+   )
+
 }

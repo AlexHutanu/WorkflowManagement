@@ -26,7 +26,7 @@ export default () => {
 
    return (
       <div className="tickets">
-         <ul className="tickets___list">
+         <ul className="tickets__list">
             {tickets?.map((ticket) =>
                <li className="tickets__list__ticket" key={ticket.id}>
                   <p>{ticket.name}</p>
