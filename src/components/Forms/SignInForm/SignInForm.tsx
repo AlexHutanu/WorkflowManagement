@@ -5,6 +5,7 @@ import { callAxios } from '../../../utils/axios'
 import { API_BASE_URL } from '../../../utils/env'
 import { setToLocalStorage } from '../../../utils/localStorage'
 import { ILogin } from '../../../interfaces/Login'
+import { UrlPaths } from '../../../constants/urlPaths'
 
 
 export default () => {
@@ -17,7 +18,7 @@ export default () => {
    const submit = async (e: SyntheticEvent) => {
       e.preventDefault()
 
-      const {data, error} = await callAxios<ILogin>(`${API_BASE_URL}/login`, {
+      const {data, error} = await callAxios<ILogin>(`${API_BASE_URL}${UrlPaths.LOGIN}`, {
          method: HttpMethods.POST,
          requestBody: {
             email,

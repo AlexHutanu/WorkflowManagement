@@ -1,5 +1,6 @@
 import { SyntheticEvent, useState } from 'react'
 import { HttpMethods } from '../../../constants/httpsMethods'
+import { UrlPaths } from '../../../constants/urlPaths'
 import { IRegister } from '../../../interfaces/Register'
 import { callAxios } from '../../../utils/axios'
 import { API_BASE_URL } from '../../../utils/env'
@@ -14,7 +15,7 @@ export default () => {
    const submit = async (e: SyntheticEvent) => {
       e.preventDefault();
 
-      const {data, error} = await callAxios<IRegister>(`${API_BASE_URL}/register`, {
+      const {data, error} = await callAxios<IRegister>(`${API_BASE_URL}${UrlPaths.REGISTER}`, {
          method: HttpMethods.POST,
          requestBody: {
             name,

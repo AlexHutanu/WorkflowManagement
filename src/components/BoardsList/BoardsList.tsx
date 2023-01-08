@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { HttpMethods } from '../../constants/httpsMethods'
+import { UrlPaths } from '../../constants/urlPaths'
 import { IBoard } from '../../interfaces/Board'
 import { callAxios } from '../../utils/axios'
 import { API_BASE_URL } from '../../utils/env'
@@ -16,7 +17,7 @@ export default () => {
 
    useEffect(() => {
       (async () => {
-         const { data, error } = await callAxios<IBoard[]>(`${API_BASE_URL}/boards`, {
+         const { data, error } = await callAxios<IBoard[]>(`${API_BASE_URL}${UrlPaths.BOARDS}`, {
             method: HttpMethods.GET
          })
          !error && data && setBoards(data)

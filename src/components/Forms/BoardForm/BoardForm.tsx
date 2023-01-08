@@ -1,5 +1,6 @@
 import { useFormik } from 'formik'
 import { HttpMethods } from '../../../constants/httpsMethods'
+import { UrlPaths } from '../../../constants/urlPaths'
 import { IBoard, ICreateBoard } from '../../../interfaces/Board'
 import { callAxios } from '../../../utils/axios'
 import { API_BASE_URL } from '../../../utils/env'
@@ -14,7 +15,7 @@ export default () => {
       },
       onSubmit: async (values) => {
 
-         const { data, error } = await callAxios<IBoard, ICreateBoard>(`${API_BASE_URL}/boards`, {
+         const { data, error } = await callAxios<IBoard, ICreateBoard>(`${API_BASE_URL}${UrlPaths.BOARDS}`, {
             method: HttpMethods.POST,
             requestBody: { ...values, owner: 'fwefwe' }
          })

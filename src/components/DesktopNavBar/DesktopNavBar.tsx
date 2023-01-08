@@ -1,11 +1,30 @@
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import BoardIcon from '../../icons/BoardIcon';
+import { HttpMethods } from '../../constants/httpsMethods'
+import { UrlPaths } from '../../constants/urlPaths'
+import BoardIcon from '../../icons/BoardIcon'
 import ProjectIcon from '../../icons/ProjectIcon'
 import TicketIcon from '../../icons/TicketIcon'
+import { IUser } from '../../interfaces/User'
+import { callAxios } from '../../utils/axios'
+import { API_BASE_URL } from '../../utils/env'
+
 
 export default () => {
 
    const navigate = useNavigate()
+
+   const [user, setUser] = useState<IUser>()
+
+   useEffect(() => {
+      (async () => {
+         const {data, error} = await callAxios<IUser>(`${API_BASE_URL}${UrlPaths.USER}`, {
+            method: HttpMethods.GET,
+            auth: true
+         })
+         !error && data && setUser(data)
+      })()
+   }, [])
 
    return <>
       <div className="desktop-nav-bar">
@@ -20,10 +39,10 @@ export default () => {
                   <img src="profile_picture.jpg" alt="profile picture"/>
                </div>
                <p className="desktop-nav-bar__lower-section__profile__name">
-                  James Smith
+                  {user?.name}
                </p>
                <p className="desktop-nav-bar__lower-section__profile__mail-address">
-                  james.smith@domain.com
+                  {user?.email}
                </p>
             </div>
             <div className="desktop-nav-bar__lower-section__links">
