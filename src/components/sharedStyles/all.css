@@ -120,6 +120,7 @@
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
+  height: 20rem;
 }
 .desktop-nav-bar__lower-section__profile__picture img {
   border-radius: 50%;

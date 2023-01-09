@@ -1,4 +1,4 @@
-import DesktopNavBar from '../../components/DesktopNavBar'
+import NavBar from '../../components/NavBar'
 import Header from '../../components/Header'
 import Tickets from '../../components/Tickets'
 
@@ -8,7 +8,7 @@ export default () => {
    return (
       <div className="board-page__wrapper">
          <div className="nav--bar">
-            <DesktopNavBar />
+            <NavBar />
          </div>
          <div className="board-page">
             <div className="header">

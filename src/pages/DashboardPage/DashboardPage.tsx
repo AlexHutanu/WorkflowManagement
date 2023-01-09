@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import DesktopNavBar from '../../components/DesktopNavBar'
+import NavBar from '../../components/NavBar'
 import Header from '../../components/Header'
 import { HttpMethods } from '../../constants/httpsMethods'
 import { UrlPaths } from '../../constants/urlPaths'
@@ -23,12 +23,10 @@ export default () => {
    }, [])
 
 
-   console.log(user)
-
    return (
       <div className="dashboard-page__wrapper">
          <div className="nav--bar">
-            <DesktopNavBar/>
+            <NavBar/>
          </div>
          <div className="dashboard-page">
             <Header/>

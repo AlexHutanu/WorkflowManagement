@@ -1,5 +1,5 @@
 import Board from '../../components/BoardsList'
-import DesktopNavBar from '../../components/DesktopNavBar'
+import NavBar from '../../components/NavBar'
 import Header from '../../components/Header'
 import CreateBoardModal from '../../components/Modals/CreateBoard'
 
@@ -8,7 +8,7 @@ export default () => {
    return (
       <div className="board-list-page__wrapper">
          <div className="nav--bar">
-            <DesktopNavBar/>
+            <NavBar/>
          </div>
          <div className="board-list-page">
             <div className="header">

@@ -12,8 +12,7 @@ export const getEnvironmentVariable = (
    environmentVariableKey: keyof IEnv,
 ): string | undefined =>
    window.env?.[environmentVariableKey] ||
-   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-   // @ts-ignore
+
    import.meta.env[environmentVariableKey];
 
 export enum EnvironmentVariableKey {

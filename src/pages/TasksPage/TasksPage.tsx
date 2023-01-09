@@ -1,4 +1,4 @@
-import DesktopNavBar from '../../components/DesktopNavBar'
+import DesktopNavBar from '../../components/NavBar'
 import Header from '../../components/Header'
 
 

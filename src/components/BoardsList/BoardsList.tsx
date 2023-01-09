@@ -18,7 +18,8 @@ export default () => {
    useEffect(() => {
       (async () => {
          const { data, error } = await callAxios<IBoard[]>(`${API_BASE_URL}${UrlPaths.BOARDS}`, {
-            method: HttpMethods.GET
+            method: HttpMethods.GET,
+            auth: true
          })
          !error && data && setBoards(data)
       })()

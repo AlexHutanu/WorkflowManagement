@@ -6,6 +6,7 @@ import { getFromLocalStorage } from './localStorage'
 interface IAxiosCallReturn<T> {
    data: T | null;
    error: boolean;
+   errorData?: unknown;
 }
 
 interface IAxiosCallOptions<T> {
@@ -49,6 +50,6 @@ export const callAxios = async <K, T = unknown>(URL: string, options: IAxiosCall
 
       return {data, error: false}
    } catch (err: unknown) {
-      return {data: null, error: true}
+      return {data: null, error: true, errorData: err}
    }
 }
