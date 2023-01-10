@@ -15,13 +15,15 @@ export default () => {
       },
       onSubmit: async (values) => {
 
-         const { data, error } = await callAxios<IBoard, ICreateBoard>(`${API_BASE_URL}${UrlPaths.BOARDS}`, {
+         const {
+            data,
+            error
+         } = await callAxios<IBoard, ICreateBoard>(`${API_BASE_URL}${UrlPaths.BOARDS}`, {
             method: HttpMethods.POST,
             requestBody: { ...values, owner: 'fwefwe' }
          })
       }
    })
-
 
    return (
       <div className="board-form">

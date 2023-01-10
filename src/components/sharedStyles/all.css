@@ -89,7 +89,7 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  width: 100%;
+  width: 25rem;
   height: 100vh;
   gap: 5rem;
   border-right: 1px solid grey;
@@ -171,11 +171,16 @@
 }
 
 .tickets {
-  width: 100%;
+  width: fit-content;
   height: 100%;
 }
 .tickets__list__ticket {
-  border: 1px solid red;
+  border: 1px solid black;
+}
+.tickets-place {
+  border: 1px solid black;
+  width: 20rem;
+  height: 20rem;
 }
 
 .search-bar {
@@ -209,6 +214,22 @@
 }
 .board-form form input {
   margin-bottom: 1rem;
+}
+
+.create-ticket-modal__box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70rem;
+  height: 50rem;
+  border-radius: 1rem;
+  border: 1px solid grey;
+  background-color: white;
+}
+
+.css-0 {
+  height: 100%;
 }
 
 html, body, div, span, applet, object, iframe,

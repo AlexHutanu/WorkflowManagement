@@ -1,11 +1,17 @@
 .tickets {
-  width: 100%;
+  width: fit-content;
   height: 100%;
 
   &__list {
 
     &__ticket {
-      border: 1px solid red;
+      border: 1px solid black;
     }
+  }
+
+  &-place {
+    border: 1px solid black;
+    width: 20rem;
+    height: 20rem;
   }
 }

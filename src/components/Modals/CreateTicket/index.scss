@@ -1,0 +1,18 @@
+.create-ticket-modal {
+
+  &__box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70rem;
+    height: 50rem;
+    border-radius: 1rem;
+    border: 1px solid grey;
+    background-color: white;
+  }
+}
+
+.css-0 {
+  height: 100%;
+}

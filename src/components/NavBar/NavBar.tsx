@@ -5,26 +5,46 @@ import { UrlPaths } from '../../constants/urlPaths'
 import BoardIcon from '../../icons/BoardIcon'
 import ProjectIcon from '../../icons/ProjectIcon'
 import TicketIcon from '../../icons/TicketIcon'
+import { IBoard } from '../../interfaces/Board'
 import { IUser } from '../../interfaces/User'
 import { callAxios } from '../../utils/axios'
 import { API_BASE_URL } from '../../utils/env'
+import SearchBoard from '../SearchBoard'
+import ListPage from '../SearchBoard/ListPage'
 
 
 export default () => {
 
    const navigate = useNavigate()
 
-   const [user, setUser] = useState<IUser>()
+   const [ user, setUser ] = useState<IUser>()
+   const [ displayBoardList, setDisplayBoardList ] = useState(false)
+   const [ boards, setBoards ] = useState<IBoard[]>([])
+   const [ searchResults, setSearchResult ] = useState<IBoard[]>([])
 
    useEffect(() => {
       (async () => {
-         const {data, error} = await callAxios<IUser>(`${API_BASE_URL}${UrlPaths.USER}`, {
+         const { data, error } = await callAxios<IUser>(`${API_BASE_URL}${UrlPaths.USER}`, {
             method: HttpMethods.GET,
             auth: true
          })
          !error && data && setUser(data)
       })()
-   },[])
+   }, [])
+
+   useEffect(() => {
+      (async () => {
+         const { data, error } = await callAxios<IBoard[]>(`${API_BASE_URL}${UrlPaths.BOARDS}`, {
+            method: HttpMethods.GET,
+            auth: true
+         })
+         !error && data && setBoards((data))
+         !error && data && setSearchResult((data))
+      })()
+   }, [])
+
+   console.log(boards)
+
 
    return <>
       <div className="desktop-nav-bar">
@@ -47,7 +67,7 @@ export default () => {
             </div>
             <div className="desktop-nav-bar__lower-section__links">
                <div className="desktop-nav-bar__lower-section__links__element">
-                  <BoardIcon />
+                  <BoardIcon/>
                   <p className="desktop-nav-bar__lower-section__links__element__name"
                      onClick={() => navigate('/')
                      }>
@@ -55,15 +75,18 @@ export default () => {
                   </p>
                </div>
                <div className="desktop-nav-bar__lower-section__links__element">
-                  <ProjectIcon />
+                  <ProjectIcon/>
                   <p className="desktop-nav-bar__lower-section__links__element__name"
-                     onClick={() => navigate('/boards')
+                     onClick={() => setDisplayBoardList(prev => !prev)
                      }>
                      Boards
                   </p>
                </div>
+               <SearchBoard setSearchResults={setSearchResult} boards={boards}/>
+               <ListPage searchResults={searchResults}/>
+               
                <div className="desktop-nav-bar__lower-section__links__element">
-                  <TicketIcon />
+                  <TicketIcon/>
                   <p className="desktop-nav-bar__lower-section__links__element__name"
                      onClick={() => navigate('/tickets')
                      }>

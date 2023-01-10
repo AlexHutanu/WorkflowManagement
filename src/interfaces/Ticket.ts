@@ -7,5 +7,13 @@ export interface ITicket {
    readonly deadline: number;
    readonly status: string;
    readonly boardId: string;
-   readonly ticketType: number;
+}
+
+export interface ICreateTicket {
+   readonly name: string;
+   readonly assignee: string;
+   readonly reporter: string;
+   readonly description: string;
+   readonly status: string;
+   readonly boardId: string;
 }
