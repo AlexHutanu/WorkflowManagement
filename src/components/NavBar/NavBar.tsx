@@ -1,49 +1,50 @@
 import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { HttpMethods } from '../../constants/httpsMethods'
 import { UrlPaths } from '../../constants/urlPaths'
 import BoardIcon from '../../icons/BoardIcon'
-import ProjectIcon from '../../icons/ProjectIcon'
 import TicketIcon from '../../icons/TicketIcon'
 import { IBoard } from '../../interfaces/Board'
 import { IUser } from '../../interfaces/User'
+import { setSearchModal } from '../../redux/searchModal'
+import { RootState } from '../../redux/store'
 import { callAxios } from '../../utils/axios'
 import { API_BASE_URL } from '../../utils/env'
-import SearchBoard from '../SearchBoard'
-import ListPage from '../SearchBoard/ListPage'
-
+import { isTokenValid } from '../../utils/jwt'
+import { deleteFromLocalStorage } from '../../utils/localStorage'
 
 export default () => {
 
    const navigate = useNavigate()
 
    const [ user, setUser ] = useState<IUser>()
-   const [ displayBoardList, setDisplayBoardList ] = useState(false)
    const [ boards, setBoards ] = useState<IBoard[]>([])
    const [ searchResults, setSearchResult ] = useState<IBoard[]>([])
 
+   const { searchModal } = useSelector((state: RootState) => state.searchModal)
+
+   const dispatch = useDispatch()
+
    useEffect(() => {
+      if (!isTokenValid()) {
+         deleteFromLocalStorage('token')
+         navigate(UrlPaths.LOGIN)
+      }
       (async () => {
-         const { data, error } = await callAxios<IUser>(`${API_BASE_URL}${UrlPaths.USER}`, {
+         const { data: userData, error: userError } = await callAxios<IUser>(`${API_BASE_URL}${UrlPaths.USER}`, {
             method: HttpMethods.GET,
             auth: true
          })
-         !error && data && setUser(data)
-      })()
-   }, [])
-
-   useEffect(() => {
-      (async () => {
-         const { data, error } = await callAxios<IBoard[]>(`${API_BASE_URL}${UrlPaths.BOARDS}`, {
+         !userError && userData && setUser(userData)
+         const { data: boardData, error: boardError } = await callAxios<IBoard[]>(`${API_BASE_URL}${UrlPaths.BOARDS}`, {
             method: HttpMethods.GET,
             auth: true
          })
-         !error && data && setBoards((data))
-         !error && data && setSearchResult((data))
+         !boardError && boardData && setBoards((boardData))
+         !boardError && boardData && setSearchResult((boardData))
       })()
    }, [])
-
-   console.log(boards)
 
 
    return <>
@@ -74,23 +75,21 @@ export default () => {
                      Dashboard
                   </p>
                </div>
-               <div className="desktop-nav-bar__lower-section__links__element">
-                  <ProjectIcon/>
-                  <p className="desktop-nav-bar__lower-section__links__element__name"
-                     onClick={() => setDisplayBoardList(prev => !prev)
-                     }>
-                     Boards
-                  </p>
-               </div>
-               <SearchBoard setSearchResults={setSearchResult} boards={boards}/>
-               <ListPage searchResults={searchResults}/>
-               
+
                <div className="desktop-nav-bar__lower-section__links__element">
                   <TicketIcon/>
                   <p className="desktop-nav-bar__lower-section__links__element__name"
                      onClick={() => navigate('/tickets')
                      }>
                      Tasks
+                  </p>
+               </div>
+               <div className="desktop-nav-bar__lower-section__links__element">
+                  <TicketIcon/>
+                  <p className="desktop-nav-bar__lower-section__links__element__name"
+                     onClick={() => dispatch(setSearchModal(!searchModal))
+                     }>
+                     Boards
                   </p>
                </div>
             </div>

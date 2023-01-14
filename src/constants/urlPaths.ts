@@ -4,5 +4,6 @@ export enum UrlPaths {
    REGISTER = '/register',
    BOARDS = '/boards',
    TICKETS = '/tickets',
-   USER = '/user'
+   USER = '/user',
+   BOARD = '/boards/board'
 }

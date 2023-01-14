@@ -1,11 +1,14 @@
-import {configureStore} from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit'
 
-import boardId from './boardId';
+import boardId from './boardId'
+import searchModal from './searchModal'
+
 
 const store = configureStore({
    reducer: {
-      boardId
-   },
+      boardId,
+      searchModal
+   }
 })
 
 export type RootState = ReturnType<typeof store.getState>
