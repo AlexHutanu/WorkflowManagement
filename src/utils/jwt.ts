@@ -1,10 +1,11 @@
 import { getFromLocalStorage } from './localStorage'
 
-const getDecodedToken = (): {
-   sub: string;
+interface ITokenData {
+   issuer: string;
    exp: number;
-   email: string;
-} | null => {
+}
+
+const getDecodedToken = (): ITokenData | null => {
    const token = getFromLocalStorage('token')
    if (!token) {
       return null
@@ -19,14 +20,13 @@ const getDecodedToken = (): {
          .join('')
    )
    return JSON.parse(jsonPayload)
+
 }
 
 const getTokenExpirationDate = (): number | null => {
    const decodedToken = getDecodedToken()
-   if (!decodedToken) {
-      return null
-   }
-   return decodedToken.exp
+
+   return decodedToken && decodedToken.exp
 }
 
 export const isTokenValid = (): boolean => {

@@ -13,7 +13,6 @@ import { callAxios } from '../../../utils/axios'
 import { API_BASE_URL } from '../../../utils/env'
 
 
-
 export default () => {
 
    const { searchModal } = useSelector((state: RootState) => state.searchModal)
@@ -36,6 +35,15 @@ export default () => {
             `${API_BASE_URL}${UrlPaths.BOARD}/?name=${debouncedSearchInput}` :
             `${API_BASE_URL}${UrlPaths.BOARDS}`
 
+         const ticketsUrl = debouncedSearchInput ?
+            `${API_BASE_URL}${UrlPaths.TICKET}/?name=${debouncedSearchInput}` :
+            `${API_BASE_URL}${UrlPaths.TICKETS}`
+
+         const usersUrl = debouncedSearchInput ?
+            `${API_BASE_URL}${UrlPaths.USER}/?name=${debouncedSearchInput}` :
+            `${API_BASE_URL}${UrlPaths.USERS}`
+
+
          const {
             data: boards,
             error: boardsError
@@ -44,24 +52,25 @@ export default () => {
             auth: true
          })
          !boardsError && boards && setBoards((boards))
-         /*      const {
-                  data: tickets,
-                  error: ticketsError
-               } = await callAxios<ITicket[]>(`${API_BASE_URL}${UrlPaths.TICKETS}`, {
-                  method: HttpMethods.GET,
-                  auth: true
-               })
-               !ticketsError && tickets && setTickets((tickets))
+
+         const {
+            data: tickets,
+            error: ticketsError
+         } = await callAxios<ITicket[]>(ticketsUrl, {
+            method: HttpMethods.GET,
+            auth: true
+         })
+         !ticketsError && tickets && setTickets((tickets))
 
 
-               const {
-                  data: users,
-                  error: usersError
-               } = await callAxios<IUser[]>(`${API_BASE_URL}${UrlPaths.USER}`, {
-                  method: HttpMethods.GET,
-                  auth: true
-               })
-               !usersError && users && setUsers((users))*/
+         const {
+            data: users,
+            error: usersError
+         } = await callAxios<IUser[]>(usersUrl, {
+            method: HttpMethods.GET,
+            auth: true
+         })
+         !usersError && users && setUsers((users))
       })()
    }, [ debouncedSearchInput ])
 
@@ -90,8 +99,24 @@ export default () => {
                             onChange={e => setSearchInput(e.target.value)}/>
                   </div>
                   <div className="search-modal__results">
-                     {boards?.map((board) => <p>{board.name}</p>)}
-                     {/*                     {tickets?.map((ticket) => <p>{ticket.name}</p>)}*/}
+                     <div className="search-modal__results__element">
+                        <p className="search-modal__results__element__name">Boards</p>
+                        <ul>
+                           {boards?.map((board) => <li key={board.id}>{board.name}</li>)}
+                        </ul>
+                     </div>
+                     <div className="search-modal__results__element">
+                        <p className="search-modal__results__element__name">Tickets</p>
+                        <ul>
+                           {tickets?.map((ticket) => <li key={ticket.id}>{ticket.name}</li>)}
+                        </ul>
+                     </div>
+                     <div className="search-modal__results__element">
+                        <p className="search-modal__results__element__name">Users</p>
+                        <ul>
+                           {users?.map((user) => <li key={user.id}>{user.name}</li>)}
+                        </ul>
+                     </div>
                   </div>
                </Box>
             </div>

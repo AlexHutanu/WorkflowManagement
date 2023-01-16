@@ -278,7 +278,23 @@
   border: 1px solid red;
 }
 .search-modal__results {
+  display: flex;
+  justify-content: center;
   height: 66%;
+  width: 100%;
+}
+.search-modal__results__element {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+.search-modal__results__element__name {
+  font-size: 2rem;
+  font-weight: bold;
+}
+.search-modal__results__element ul li {
+  font-size: 1.5rem;
 }
 
 .MuiBox-root {

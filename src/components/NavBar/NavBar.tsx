@@ -32,7 +32,7 @@ export default () => {
          navigate(UrlPaths.LOGIN)
       }
       (async () => {
-         const { data: userData, error: userError } = await callAxios<IUser>(`${API_BASE_URL}${UrlPaths.USER}`, {
+         const { data: userData, error: userError } = await callAxios<IUser>(`${API_BASE_URL}${UrlPaths.LOGGED_USER}`, {
             method: HttpMethods.GET,
             auth: true
          })

@@ -52,7 +52,29 @@
     }
 
     &__results {
+        display: flex;
+        justify-content: center;
         height: 66%;
+        width: 100%;
+
+        &__element {
+            display: flex;
+            flex-direction: column;
+            gap: .5rem;
+            width: 100%;
+
+            &__name {
+                font-size: 2rem;
+                font-weight: bold;
+            }
+
+            & ul {
+
+                & li {
+                  font-size: 1.5rem
+                }
+            }
+        }
     }
 
 

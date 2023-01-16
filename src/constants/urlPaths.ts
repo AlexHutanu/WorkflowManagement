@@ -3,7 +3,11 @@ export enum UrlPaths {
    DASHBOARD = '/',
    REGISTER = '/register',
    BOARDS = '/boards',
+   BOARD = '/boards/board',
    TICKETS = '/tickets',
-   USER = '/user',
-   BOARD = '/boards/board'
+   TICKET = '/tickets/ticket',
+   USERS = '/users',
+   USER = '/users/user',
+   LOGGED_USER = '/user'
+
 }

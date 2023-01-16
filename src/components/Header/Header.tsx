@@ -20,7 +20,7 @@ export default () => {
 
    useEffect(() => {
       (async () => {
-         const {data, error} = await callAxios<IUser>(`${API_BASE_URL}${UrlPaths.USER}`, {
+         const {data, error} = await callAxios<IUser>(`${API_BASE_URL}${UrlPaths.LOGGED_USER}`, {
             method: HttpMethods.GET,
             auth: true
          })
