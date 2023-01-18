@@ -174,13 +174,58 @@
   width: fit-content;
   height: 100%;
 }
+.tickets__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
 .tickets__list__ticket {
   border: 1px solid black;
-}
-.tickets-place {
-  border: 1px solid black;
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem;
+  padding: 1rem;
+  border-radius: 1rem;
   width: 20rem;
-  height: 20rem;
+  height: 10rem;
+}
+.tickets__list__ticket__right-side {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  justify-content: center;
+}
+.tickets__list__ticket__name {
+  font-size: 1.7rem;
+}
+.tickets__ticket-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90rem;
+  height: 65rem;
+  border-radius: 1rem;
+  background-color: white;
+  border: 5px solid grey;
+}
+.tickets__ticket-modal__right-side__title {
+  font-size: 4rem;
+}
+.tickets__ticket-modal__right-side__description {
+  width: 25rem;
+}
+.tickets__ticket-modal__right-side__description p {
+  font-size: 2rem;
+}
+
+.tickets-box {
+  display: flex;
+  justify-content: space-between;
+}
+
+.MuiBox-root {
+  width: 100% !important;
 }
 
 .search-bar {
@@ -249,7 +294,7 @@
 .search-modal__categories {
   display: flex;
   align-items: center;
-  height: 20%;
+  height: 15%;
   width: 100%;
 }
 .search-modal__categories__element {
@@ -263,6 +308,17 @@
   transition: 0.2s ease-in-out;
 }
 .search-modal__categories__element:hover {
+  background-color: #f3f3f3;
+}
+.search-modal__categories__element__is-active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  font-size: 3rem;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
   background-color: #f3f3f3;
 }
 .search-modal__search-bar {
@@ -280,25 +336,65 @@
 .search-modal__results {
   display: flex;
   justify-content: center;
-  height: 66%;
-  width: 100%;
+  align-items: center;
+  height: 35rem;
+  width: 70%;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  overflow: hidden;
+  overflow-y: scroll;
 }
-.search-modal__results__element {
+.search-modal__results__wrapper {
+  display: flex;
+  height: 40rem;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.element {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  width: 100%;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid grey;
+  min-width: 10rem;
+  min-height: 3rem;
+  height: fit-content;
+  width: fit-content;
+  border-radius: 1rem;
+  cursor: pointer;
+  transition: all 0.5s;
 }
-.search-modal__results__element__name {
-  font-size: 2rem;
-  font-weight: bold;
+.element:hover {
+  background-color: #f3f3f3;
 }
-.search-modal__results__element ul li {
+.element__name {
   font-size: 1.5rem;
 }
 
 .MuiBox-root {
   width: 70rem;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
 html, body, div, span, applet, object, iframe,

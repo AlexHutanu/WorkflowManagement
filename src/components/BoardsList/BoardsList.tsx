@@ -17,6 +17,7 @@ export default () => {
 
    useEffect(() => {
       (async () => {
+
          const { data, error } = await callAxios<IBoard[]>(`${API_BASE_URL}${UrlPaths.BOARDS}`, {
             method: HttpMethods.GET,
             auth: true
@@ -39,7 +40,7 @@ export default () => {
                   <p>{board.owner}</p>
                   <p>{board.noOfTickets}</p>
                </li>
-            )}
+               )}
 
          </ul>
       </div>

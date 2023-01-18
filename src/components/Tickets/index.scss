@@ -3,15 +3,71 @@
   height: 100%;
 
   &__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
 
     &__ticket {
       border: 1px solid black;
+      display: flex;
+      justify-content: space-between;
+      margin: 1rem;
+      padding: 1rem;
+      border-radius: 1rem;
+      width: 20rem;
+      height: 10rem;
+
+      &__right-side {
+        display: flex;
+        gap: 1rem;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      &__name {
+        font-size: 1.7rem;
+
+      }
     }
   }
 
-  &-place {
-    border: 1px solid black;
-    width: 20rem;
-    height: 20rem;
+  &__ticket-modal {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90rem;
+      height: 65rem;
+      border-radius: 1rem;
+      background-color: white;
+      border: 5px solid grey;
+
+
+    &__right-side {
+
+      &__title {
+        font-size: 4rem;
+      }
+
+      &__description {
+        width: 25rem;
+
+        & p {
+          font-size: 2rem;
+        }
+      }
+    }
+
   }
+
+}
+
+
+.tickets-box {
+  display: flex;
+  justify-content: space-between;
+}
+
+.MuiBox-root {
+  width: 100% !important;
 }

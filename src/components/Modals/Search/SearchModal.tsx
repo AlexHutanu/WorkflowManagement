@@ -11,6 +11,7 @@ import { setSearchModal } from '../../../redux/searchModal'
 import { RootState } from '../../../redux/store'
 import { callAxios } from '../../../utils/axios'
 import { API_BASE_URL } from '../../../utils/env'
+import Element from './Element'
 
 
 export default () => {
@@ -23,9 +24,47 @@ export default () => {
    const [ tickets, setTickets ] = useState<ITicket[]>()
    const [ users, setUsers ] = useState<IUser[]>()
 
+   const [ showBoards, setShowBoards ] = useState(false)
+   const [ showTickets, setShowTickets ] = useState(false)
+   const [ showUsers, setShowUsers ] = useState(false)
+   const [ showAllSearches, setShowAllSearches ] = useState(true)
+
+
+   const handleEvent = (element: string) => {
+
+      if (element == 'showBoards') {
+         setShowBoards(true)
+         setShowTickets(false)
+         setShowUsers(false)
+         setShowAllSearches(false)
+      }
+
+      if (element == 'showTickets') {
+         setShowTickets(true)
+         setShowBoards(false)
+         setShowUsers(false)
+         setShowAllSearches(false)
+      }
+
+      if (element == 'showUsers') {
+         setShowUsers(true)
+         setShowAllSearches(false)
+         setShowTickets(false)
+         setShowBoards(false)
+      }
+   }
+
+
    const [ searchInput, setSearchInput ] = useState('')
 
    const debouncedSearchInput = useDebounce(searchInput, 500)
+
+   enum elementType {
+      TICKETS = 'from Tickets',
+      BOARDS = 'from Boards',
+      USERS = 'from Users'
+   }
+
 
 
    useEffect(() => {
@@ -84,13 +123,22 @@ export default () => {
             <div className="search-modal">
                <Box>
                   <div className="search-modal__categories">
-                     <span className="search-modal__categories__element">
+                     <span
+                        className={showBoards ? 'search-modal__categories__element__is-active' :
+                           'search-modal__categories__element'}
+                        onClick={() => handleEvent('showBoards')}>
                         Boards
                      </span>
-                     <span className="search-modal__categories__element">
+                     <span
+                        className={showTickets ? 'search-modal__categories__element__is-active' :
+                           'search-modal__categories__element'}
+                        onClick={() => handleEvent('showTickets')}>
                         Tickets
                      </span>
-                     <span className="search-modal__categories__element">
+                     <span
+                        className={showUsers ? 'search-modal__categories__element__is-active' :
+                           'search-modal__categories__element'}
+                        onClick={() => handleEvent('showUsers')}>
                         Users
                      </span>
                   </div>
@@ -98,24 +146,24 @@ export default () => {
                      <input type="text" placeholder="Search..."
                             onChange={e => setSearchInput(e.target.value)}/>
                   </div>
-                  <div className="search-modal__results">
-                     <div className="search-modal__results__element">
-                        <p className="search-modal__results__element__name">Boards</p>
-                        <ul>
-                           {boards?.map((board) => <li key={board.id}>{board.name}</li>)}
-                        </ul>
-                     </div>
-                     <div className="search-modal__results__element">
-                        <p className="search-modal__results__element__name">Tickets</p>
-                        <ul>
-                           {tickets?.map((ticket) => <li key={ticket.id}>{ticket.name}</li>)}
-                        </ul>
-                     </div>
-                     <div className="search-modal__results__element">
-                        <p className="search-modal__results__element__name">Users</p>
-                        <ul>
-                           {users?.map((user) => <li key={user.id}>{user.name}</li>)}
-                        </ul>
+                  <div className="search-modal__results__wrapper">
+                     <div className="search-modal__results">
+                        {showBoards || showAllSearches ? boards?.map((board) => <Element
+                           key={board.id}
+                           elementUrlPath={UrlPaths.BOARD}
+                           elementName={board.name}
+                           elementType={elementType.BOARDS}
+                           boardId={board.id}/>) : ''}
+                        {showTickets || showAllSearches ? tickets?.map((ticket) => <Element
+                           key={ticket.id}
+                           elementUrlPath={UrlPaths.TICKET}
+                           elementName={ticket.name}
+                           elementType={elementType.TICKETS}/>) : ''}
+                        {showUsers || showAllSearches ? users?.map((user) => <Element
+                           key={user.id}
+                           elementUrlPath={UrlPaths.USER}
+                           elementName={user.name}
+                           elementType={elementType.USERS}/>) : ''}
                      </div>
                   </div>
                </Box>
