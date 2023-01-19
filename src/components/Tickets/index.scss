@@ -37,13 +37,17 @@
       left: 50%;
       transform: translate(-50%, -50%);
       width: 90rem;
-      height: 65rem;
+      height: 50rem;
       border-radius: 1rem;
       background-color: white;
       border: 5px solid grey;
 
 
     &__right-side {
+      display: flex;
+      flex-direction: column;
+      padding: 5rem;
+      gap: 10rem;
 
       &__title {
         font-size: 4rem;
@@ -55,6 +59,31 @@
         & p {
           font-size: 2rem;
         }
+      }
+    }
+
+    &__left-side {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 5rem;
+      width: 30%;
+      gap: 2rem;
+
+      &__element {
+        display: flex;
+        gap: 2rem;
+        justify-content: center;
+
+        & span {
+          font-size: 1.8rem;
+          font-weight: 500;
+        }
+
+        &__name {
+          font-size: 1.8rem;
+        }
+
       }
     }
 

@@ -65,12 +65,10 @@
 
   &__results {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
     height: 35rem;
-    width: 70%;
+    width: 90%;
     gap: 1.5rem;
-    flex-wrap: wrap;
     overflow: hidden;
     overflow-y: scroll;
 
@@ -89,23 +87,25 @@
 .element {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  border: 1px solid grey;
-  min-width: 10rem;
-  min-height: 3rem;
-  height: fit-content;
-  width: fit-content;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  width: 90%;
   border-radius: 1rem;
   cursor: pointer;
   transition: all .5s;
+  padding: 1.5rem;
 
   &:hover {
     background-color: #f3f3f3;
   }
 
   &__name {
-    font-size: 1.5rem;
+    font-size: 2rem;
+  }
+
+  &__provenance {
+    font-size: 1.2rem;
+    padding-left: 1rem;
   }
 }
 

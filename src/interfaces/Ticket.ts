@@ -5,8 +5,10 @@ export interface ITicket {
    readonly reporter: string;
    readonly description: string;
    readonly deadline: number;
-   readonly status: string;
+   readonly status: number;
    readonly boardId: string;
+   readonly type: number;
+   readonly label: number;
 }
 
 export interface ICreateTicket {
@@ -14,6 +16,6 @@ export interface ICreateTicket {
    readonly assignee: string;
    readonly reporter: string;
    readonly description: string;
-   readonly status: string;
+   readonly status: number;
    readonly boardId: string;
 }

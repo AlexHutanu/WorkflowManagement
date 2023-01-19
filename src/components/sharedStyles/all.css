@@ -204,10 +204,16 @@
   left: 50%;
   transform: translate(-50%, -50%);
   width: 90rem;
-  height: 65rem;
+  height: 50rem;
   border-radius: 1rem;
   background-color: white;
   border: 5px solid grey;
+}
+.tickets__ticket-modal__right-side {
+  display: flex;
+  flex-direction: column;
+  padding: 5rem;
+  gap: 10rem;
 }
 .tickets__ticket-modal__right-side__title {
   font-size: 4rem;
@@ -217,6 +223,26 @@
 }
 .tickets__ticket-modal__right-side__description p {
   font-size: 2rem;
+}
+.tickets__ticket-modal__left-side {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5rem;
+  width: 30%;
+  gap: 2rem;
+}
+.tickets__ticket-modal__left-side__element {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+}
+.tickets__ticket-modal__left-side__element span {
+  font-size: 1.8rem;
+  font-weight: 500;
+}
+.tickets__ticket-modal__left-side__element__name {
+  font-size: 1.8rem;
 }
 
 .tickets-box {
@@ -335,12 +361,10 @@
 }
 .search-modal__results {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
   height: 35rem;
-  width: 70%;
+  width: 90%;
   gap: 1.5rem;
-  flex-wrap: wrap;
   overflow: hidden;
   overflow-y: scroll;
 }
@@ -356,22 +380,23 @@
 .element {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  border: 1px solid grey;
-  min-width: 10rem;
-  min-height: 3rem;
-  height: fit-content;
-  width: fit-content;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  width: 90%;
   border-radius: 1rem;
   cursor: pointer;
   transition: all 0.5s;
+  padding: 1.5rem;
 }
 .element:hover {
   background-color: #f3f3f3;
 }
 .element__name {
-  font-size: 1.5rem;
+  font-size: 2rem;
+}
+.element__provenance {
+  font-size: 1.2rem;
+  padding-left: 1rem;
 }
 
 .MuiBox-root {

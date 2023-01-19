@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import BoardIcon from '../../../icons/BoardIcon'
 import { setBoardId } from '../../../redux/boardId'
 import { setSearchModal } from '../../../redux/searchModal'
 
@@ -16,11 +17,10 @@ export default ({
    const dispatch = useDispatch()
 
    return <>
-      <div className="element" onClick={(e) => {
-         e.preventDefault()
+      <div className="element" onClick={() => {
          dispatch(setSearchModal(false))
          boardId && dispatch(setBoardId(boardId))
-         navigate(`${elementUrlPath}?name=${elementName}`)
+         navigate(`${elementUrlPath}?name=${elementName}&boardId=${boardId}`)
       }}>
          <p className="element__name">
             {elementName}
