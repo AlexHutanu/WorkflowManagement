@@ -1,30 +1,36 @@
-export const ticketType = (type: number | undefined) => {
+export const ticketType1 = (type: number | undefined) => {
    switch (type) {
       case 0:
-         return <p>Bug Ticket</p>
+         return "Bug Ticket"
       case 1:
-         return <p>To Do</p>
+         return "To Do"
       case 2:
-         return <p>Feature Request</p>
+         return "Feature Request"
    }
+}
+
+export const ticketType = {
+   '0': 'Bug Ticket',
+   '1': 'To do',
+   '2': 'Feature Request'
 }
 
 export const ticketLabel = (label: number | undefined) => {
    switch (label) {
       case 0:
-         return <p>Front-end</p>
+         return "Front-end"
       case 1:
-         return <p>Back-end</p>
+         return "Back-end"
    }
 }
 
 export const ticketStatus = (status: number | undefined) => {
    switch (status) {
       case 0:
-         return <p>To do</p>
+         return "To do"
       case 1:
-         return <p>In Progress</p>
+         return "In Progress"
       case 2:
-         return <p>Done</p>
+         return "Done"
    }
 }

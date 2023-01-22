@@ -1,14 +1,16 @@
 import { Box, Modal } from '@mui/material'
-import { SetStateAction, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useSearchParams } from 'react-router-dom'
 import { HttpMethods } from '../../constants/httpsMethods'
 import { UrlPaths } from '../../constants/urlPaths'
 import { ITicket } from '../../interfaces/Ticket'
+import { IUser } from '../../interfaces/User'
 import { RootState } from '../../redux/store'
+import { ticketLabel, ticketStatus, ticketType } from '../../services/Tickets'
 import { callAxios } from '../../utils/axios'
 import { API_BASE_URL } from '../../utils/env'
-import {ticketType, ticketLabel, ticketStatus} from '../../services/Tickets'
+import DescriptionSection from './DescriptionSection'
 
 
 export default () => {
@@ -19,6 +21,8 @@ export default () => {
    const [ tickets, setTickets ] = useState<ITicket[]>()
    const { boardId: boardId } = useSelector((state: RootState) => state.boardId)
    const [ searchParams, setSearchParams ] = useSearchParams()
+   const [ user, setUser ] = useState<IUser>()
+   const [description, setDescription] = useState('')
 
    let boardIdParam = searchParams.get('boardId')
 
@@ -53,8 +57,21 @@ export default () => {
       )()
    }, [ ticketId ])
 
-   console.log(ticket)
+   useEffect(() => {
+      (async () => {
+         const {
+            data: userData,
+            error: userError
+         } = await callAxios<IUser>(`${API_BASE_URL}${UrlPaths.LOGGED_USER}`, {
+            method: HttpMethods.GET,
+            auth: true
+         })
+         !userError && userData && setUser(userData)
+      })()
+   }, [])
 
+   console.log(description)
+   console.log(ticket)
 
 
    return (
@@ -68,7 +85,7 @@ export default () => {
                   <span className="tickets__list__ticket__right-side">
                      <p className="tickets__list__ticket__name">{ticket.name}</p>
                      <p className="tickets__list__ticket__label">{ticketLabel(ticket.label)}</p>
-                     <p className="tickets__list__ticket__type">{ticketType(ticket.type)}</p>
+                     <p className="tickets__list__ticket__type">{ticketType[ticket.type]}</p>
                   </span>
                   <span>
                      <p className="tickets__list__ticket__status">{ticketStatus(ticket.status)}</p>
@@ -90,9 +107,7 @@ export default () => {
                         {ticket?.name}
                      </p>
                      <div className="tickets__ticket-modal__right-side__description">
-                        <p>
-                           {ticket?.description}
-                        </p>
+                        {ticket?.description}
                      </div>
                   </div>
                   <div className="tickets__ticket-modal__left-side">
@@ -107,7 +122,7 @@ export default () => {
                            Label
                         </span>
                         <p className="tickets__ticket-modal__left-side__element__name">
-                           {ticket?.label}
+                           {ticketLabel(ticket?.label)}
                         </p>
                      </div>
                      <div className="tickets__ticket-modal__left-side__element">
@@ -115,7 +130,7 @@ export default () => {
                            Reporter
                         </span>
                         <p className="tickets__ticket-modal__left-side__element__name">
-                           ReporterTest
+                           {user?.name}
                         </p>
                      </div>
                      <div className="tickets__ticket-modal__left-side__element">
@@ -123,7 +138,7 @@ export default () => {
                            Status
                         </span>
                         <p className="tickets__ticket-modal__left-side__element__name">
-                           {ticket?.status}
+                           {ticketStatus(ticket?.status)}
                         </p>
                      </div>
                   </div>

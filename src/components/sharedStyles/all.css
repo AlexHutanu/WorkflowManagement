@@ -152,7 +152,7 @@
 }
 .desktop-nav-bar__lower-section__links__element:hover {
   transform: translateX(0.4rem);
-  color: #42526E;
+  color: #054DA7;
 }
 
 .header {
@@ -180,6 +180,7 @@
   gap: 2rem;
 }
 .tickets__list__ticket {
+  cursor: pointer;
   border: 1px solid black;
   display: flex;
   justify-content: space-between;
@@ -219,10 +220,17 @@
   font-size: 4rem;
 }
 .tickets__ticket-modal__right-side__description {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   width: 25rem;
 }
 .tickets__ticket-modal__right-side__description p {
   font-size: 2rem;
+}
+.tickets__ticket-modal__right-side__description span {
+  font-size: 2.3rem;
+  font-weight: 500;
 }
 .tickets__ticket-modal__left-side {
   display: flex;
@@ -252,6 +260,17 @@
 
 .MuiBox-root {
   width: 100% !important;
+}
+
+.css-12dwc04-JoyTextarea-root {
+  font-size: 1.5rem !important;
+  min-width: 50rem !important;
+}
+
+.css-1iuj8d9 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .search-bar {
@@ -287,12 +306,166 @@
   margin-bottom: 1rem;
 }
 
+.ticket-form {
+  display: flex;
+  justify-content: space-between;
+  padding: 5rem;
+  height: 80%;
+}
+.ticket-form__right-side {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5rem;
+}
+.ticket-form__right-side__title-input {
+  font-size: 3rem;
+  border: 0.5px solid grey;
+  margin-bottom: 5rem;
+}
+.ticket-form__left-side {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+}
+.ticket-form__left-side__element {
+  display: flex;
+  gap: 3rem;
+}
+.ticket-form__left-side__element span {
+  font-size: 1.8rem;
+  font-weight: 500;
+}
+.ticket-form__left-side__element__name {
+  font-size: 2rem;
+}
+.ticket-form__left-side__element__select {
+  display: flex;
+  flex-direction: column;
+}
+.ticket-form__submit-button {
+  position: absolute;
+  top: 85%;
+  left: 80%;
+  width: 10rem;
+  height: 3rem;
+  background-color: #054DA7;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.label-button {
+  border: none;
+  width: 11rem;
+  font-size: 1.7rem;
+  cursor: pointer;
+  background-color: #F4F5F7;
+}
+
+.label-options {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  top: 55%;
+  left: 80%;
+  height: 8rem;
+  background-color: #F4F5F7;
+  border: none;
+}
+.label-options span {
+  width: 10rem;
+  color: black;
+  cursor: pointer;
+  padding: 0.5rem;
+  font-weight: 400;
+  font-size: 1.5rem;
+}
+
+.type-options {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  top: 68.5%;
+  left: 80%;
+  height: 8rem;
+  background-color: #F4F5F7;
+}
+.type-options span {
+  width: 10rem;
+  color: black;
+  cursor: pointer;
+  padding: 0.5rem;
+  font-weight: 400;
+  font-size: 1.5rem;
+}
+
+.type-button {
+  border: none;
+  min-width: 11rem;
+  width: fit-content;
+  font-size: 1.7rem;
+  cursor: pointer;
+  background-color: #F4F5F7;
+}
+
+.status-button {
+  border: none;
+  width: 11rem;
+  font-size: 1.7rem;
+  cursor: pointer;
+  background-color: #F4F5F7;
+}
+
+.status-options {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  top: 64%;
+  left: 81%;
+  height: 10rem;
+  background-color: #F4F5F7;
+}
+.status-options span {
+  width: 10rem;
+  color: black;
+  cursor: pointer;
+  font-weight: 400;
+  font-size: 1.5rem;
+  padding: 0.5rem;
+}
+
+.assigned-user {
+  display: flex;
+  background-color: #F4F5F7;
+  color: black;
+  cursor: pointer;
+  font-size: 1.5rem;
+  padding: 0.5rem;
+}
+
+.users-list {
+  position: absolute;
+  top: 47%;
+  width: 11rem;
+  height: 15rem;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
 .create-ticket-modal__box {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 70rem;
+  width: 85rem;
   height: 50rem;
   border-radius: 1rem;
   border: 1px solid grey;
