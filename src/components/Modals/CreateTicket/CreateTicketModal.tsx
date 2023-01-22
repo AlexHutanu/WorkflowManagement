@@ -21,7 +21,7 @@ export default () => {
          >
             <div className="create-ticket-modal__box">
                <Box >
-                  <TicketForm handleClose={handleClose}/>
+                  <TicketForm handleClose={handleClose} createMode={true}/>
                </Box>
             </div>
          </Modal>

@@ -5,7 +5,6 @@ import { HttpMethods } from '../../constants/httpsMethods'
 import { UrlPaths } from '../../constants/urlPaths'
 import BoardIcon from '../../icons/BoardIcon'
 import TicketIcon from '../../icons/TicketIcon'
-import { IBoard } from '../../interfaces/Board'
 import { IUser } from '../../interfaces/User'
 import { setSearchModal } from '../../redux/searchModal'
 import { RootState } from '../../redux/store'
@@ -19,8 +18,6 @@ export default () => {
    const navigate = useNavigate()
 
    const [ user, setUser ] = useState<IUser>()
-   const [ boards, setBoards ] = useState<IBoard[]>([])
-   const [ searchResults, setSearchResult ] = useState<IBoard[]>([])
 
    const { searchModal } = useSelector((state: RootState) => state.searchModal)
 
@@ -37,12 +34,6 @@ export default () => {
             auth: true
          })
          !userError && userData && setUser(userData)
-         const { data: boardData, error: boardError } = await callAxios<IBoard[]>(`${API_BASE_URL}${UrlPaths.BOARDS}`, {
-            method: HttpMethods.GET,
-            auth: true
-         })
-         !boardError && boardData && setBoards((boardData))
-         !boardError && boardData && setSearchResult((boardData))
       })()
    }, [])
 

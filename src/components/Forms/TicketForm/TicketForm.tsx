@@ -1,67 +1,135 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { HttpMethods } from '../../../constants/httpsMethods'
-import { TicketLabel, TicketStatus, TicketType } from '../../../constants/ticketValues'
+import { patchTicketsFields } from '../../../constants/patchTicketFields'
+import {
+   TicketLabel,
+   TicketLabels, TicketLabelsStatuses,
+   TicketStatus,
+   TicketStatuses,
+   TicketStatusNumber,
+   TicketType
+} from '../../../constants/ticketValues'
 import { UrlPaths } from '../../../constants/urlPaths'
-import { ICreateTicket, ITicket } from '../../../interfaces/Ticket'
+import useDebounce from '../../../hooks/useDebounce'
+import { ITicket } from '../../../interfaces/Ticket'
 import { IUser } from '../../../interfaces/User'
 import { callAxios } from '../../../utils/axios'
 import { API_BASE_URL } from '../../../utils/env'
 import DescriptionSection from '../../Tickets/DescriptionSection'
 
 
-export default ({ handleClose }: { handleClose: Function }) => {
+interface IPatchField {
+   path: string
+   value: string
+}
+
+export default ({
+                   handleClose,
+                   ticketData,
+                   createMode
+                }: { handleClose: Function, ticketData?: ITicket, createMode: boolean }) => {
+
+   const [ searchParams ] = useSearchParams()
 
    const [ user, setUser ] = useState<IUser>()
    const [ users, setUsers ] = useState<IUser[]>()
-   const [ assignedUser, setAssignedUser ] = useState('')
-
-   const [ searchParams, setSearchParams ] = useSearchParams()
 
    const [ showLabels, setShowLabels ] = useState(false)
    const [ showUsers, setShowUsers ] = useState(false)
    const [ showTypes, setShowTypes ] = useState(false)
    const [ showStatusUpdates, setShowStatusUpdates ] = useState(false)
 
+   const [ assignedUser, setAssignedUser ] = useState('')
    const [ label, setLabel ] = useState('')
    const [ status, setStatus ] = useState('')
    const [ type, setType ] = useState('')
    const [ description, setDescription ] = useState('')
    const [ name, setName ] = useState('')
+   const [ ticketId, setTicketId ] = useState('')
+   const [ reporter, setReporter ] = useState('')
 
    const [ labelNumberValue, setLabelNumberValue ] = useState<number>()
    const [ statusNumberValue, setStatusNumberValue ] = useState<number>()
    const [ typeNumberValue, setTypeNumberValue ] = useState<number>()
 
+   const [editDescription, setEditDescription] = useState(false)
+
    let boardIdParam = searchParams.get('boardId')
 
+   const onStatusChanged = async (patchField: IPatchField, ticketId: string) => {
 
-   const onSubmitHandler = () => {
-      (async () => {
-         const {
-            data,
-            error
-         } = await callAxios<ITicket, ICreateTicket>(`${API_BASE_URL}${UrlPaths.TICKETS}`, {
-            method: HttpMethods.POST,
-            requestBody: {
-               name: name,
-               assignee: assignedUser,
-               description: description,
-               status: statusNumberValue,
-               label: labelNumberValue,
-               type: typeNumberValue,
-               boardId: boardIdParam ? boardIdParam : '',
-               userId: user.id,
-               reporter: user.name
+      let patchValue
+      if (patchField.path === '/status') {
+         patchValue = TicketStatuses[patchField.value as TicketStatus].valueNumber
+      } else if (patchField.path === '/label') {
+         patchValue = TicketLabelsStatuses[patchField.value as TicketLabel].valueNumber
+      } else {
+         patchValue = patchField.value
+      }
+      const {
+         error
+      } = await callAxios<ITicket>(`${API_BASE_URL}${UrlPaths.TICKETS}/${ticketId}`, {
+         method: HttpMethods.PATCH,
+         auth: true,
+         requestBody: [ {
+            path: patchField.path,
+            op: 'replace',
+            value: patchValue
+         } ]
+      })
 
+      if (!error) {
+         switch (patchField.path) {
+            case '/status': {
+               setStatus(TicketStatuses[patchField.value as TicketStatus].value)
+               setStatusNumberValue(TicketStatuses[patchField.value as TicketStatus].valueNumber)
+               break
             }
-         })
-      })()
+            case '/label': {
+               setLabel(TicketLabelsStatuses[patchField.value as TicketLabel].value)
+               setLabelNumberValue(TicketLabelsStatuses[patchField.value as TicketLabel].valueNumber)
+               break
+            }
+            case '/assignee': {
+               setAssignedUser(patchField.value)
+               break
+            }
+            default:
+               throw Error('Field path not valid')
+         }
+      }
    }
 
-   console.log(assignedUser)
+   const onSubmitHandler = async () => {
+      user && await callAxios<ITicket>(`${API_BASE_URL}${UrlPaths.TICKETS}`, {
+         method: HttpMethods.POST,
+         requestBody: {
+            name,
+            assignee: assignedUser,
+            description: description,
+            status: statusNumberValue,
+            label: labelNumberValue,
+            type: typeNumberValue,
+            boardId: boardIdParam ? boardIdParam : '',
+            userId: user.id,
+            reporter: user.name
+         }
+      })
+   }
 
    useEffect(() => {
+
+      if (ticketData) {
+         setAssignedUser(ticketData.assignee)
+         setLabel(TicketLabels[ticketData.label])
+         setStatus(TicketStatuses[TicketStatusNumber[ticketData.status]].value)
+         setName(ticketData.name)
+         setDescription(ticketData.description)
+         setTicketId(ticketData.id)
+         setReporter(ticketData.reporter)
+      }
+
       (async () => {
          const {
             data: usersData,
@@ -73,7 +141,7 @@ export default ({ handleClose }: { handleClose: Function }) => {
 
          !usersError && usersData && setUsers(usersData)
       })()
-   }, [])
+   }, [ ticketData ])
 
 
    useEffect(() => {
@@ -93,9 +161,10 @@ export default ({ handleClose }: { handleClose: Function }) => {
       <div className="ticket-form">
          <div className="ticket-form__right-side">
             <input className="ticket-form__right-side__title-input" type="text"
+                   value={name}
                    placeholder="Write a title..." onChange={(e) => setName(e.target.value)}/>
             <div className="ticket-form__description">
-               <DescriptionSection setDescription={setDescription}/>
+               <DescriptionSection setDescription={setDescription} value={description} setEditDescription={setEditDescription}/>
             </div>
          </div>
          <div className="ticket-form__left-side">
@@ -104,7 +173,7 @@ export default ({ handleClose }: { handleClose: Function }) => {
                   Reporter
                </span>
                <p className="ticket-form__left-side__element__name">
-                  {user?.name}
+                  {reporter}
                </p>
             </div>
             <div className="ticket-form__left-side__element">
@@ -117,11 +186,17 @@ export default ({ handleClose }: { handleClose: Function }) => {
                   {showUsers &&
                   <ul className="users-list">
                      {users?.map((user) =>
-                        <li className="assigned-user" onClick={() => {
-                           setAssignedUser(user.name)
+                        <li className="assigned-user" onClick={async () => {
+                           if (createMode) {
+                              setAssignedUser(user.name)
+                           } else {
+                              await onStatusChanged({
+                                 path: patchTicketsFields.assignee,
+                                 value: user.name
+                              }, ticketId)
+                           }
                            setShowUsers(false)
-                        }}
-                            key={user.id}>{user.name}</li>
+                        }} key={user.id}>{user.name}</li>
                      )}
                   </ul>
                   }
@@ -138,16 +213,30 @@ export default ({ handleClose }: { handleClose: Function }) => {
                      {label ? label : 'Select label'}
                   </button>
                   {showLabels && <div className="label-options">
-                     <span className="label-options__option" onClick={() => {
-                        setLabel(TicketLabel.FRONT_END)
-                        setLabelNumberValue(0)
+                     <span className="label-options__option" onClick={async () => {
+                        if (createMode) {
+                           setLabel(TicketLabelsStatuses[TicketLabel.FRONT_END].value)
+                           setLabelNumberValue(TicketLabelsStatuses[TicketLabel.FRONT_END].valueNumber)
+                        } else {
+                           await onStatusChanged({
+                              path: patchTicketsFields.label,
+                              value: TicketLabel.FRONT_END
+                           }, ticketId)
+                        }
                         setShowLabels(false)
                      }}>
                      {TicketLabel.FRONT_END}
                   </span>
-                      <span className="label-options__option" onClick={() => {
-                         setLabel(TicketLabel.BACK_END)
-                         setLabelNumberValue(1)
+                      <span className="label-options__option" onClick={async () => {
+                         if (createMode) {
+                            setLabel(TicketLabelsStatuses[TicketLabel.BACK_END].value)
+                            setLabelNumberValue(TicketLabelsStatuses[TicketLabel.BACK_END].valueNumber)
+                         } else {
+                            await onStatusChanged({
+                               path: patchTicketsFields.label,
+                               value: TicketLabel.BACK_END
+                            }, ticketId)
+                         }
                          setShowLabels(false)
                       }}>
                          {TicketLabel.BACK_END}
@@ -166,29 +255,53 @@ export default ({ handleClose }: { handleClose: Function }) => {
                      {status ? status : TicketStatus.TO_DO}
                   </button>
                   {showStatusUpdates && <div className="status-options">
-                  <span className="status-options__option" onClick={() => {
-                     setStatus(TicketStatus.TO_DO)
-                     setStatusNumberValue(0)
-                     setShowStatusUpdates(false)
-                  }}>
+                  <span className="status-options__option"
+                        onClick={async () => {
+                           if (createMode) {
+                              setStatus(TicketStatuses[TicketStatus.TO_DO].value)
+                              setStatusNumberValue(TicketStatuses[TicketStatus.TO_DO].valueNumber)
+                              setShowStatusUpdates(false)
+                           } else {
+                              await onStatusChanged({
+                                 path: patchTicketsFields.status,
+                                 value: TicketStatus.TO_DO
+                              }, ticketId)
+                           }
+                           setShowStatusUpdates(false)
+                        }}>
                      {TicketStatus.TO_DO}
                   </span>
-                      <span className="status-options__option" onClick={() => {
-                         setStatus(TicketStatus.IN_PROGRESS)
-                         setStatusNumberValue(1)
-                         setShowStatusUpdates(false)
-                      }}>
+                      <span className="status-options__option"
+                            onClick={async () => {
+                               if (createMode) {
+                                  setStatus(TicketStatuses[TicketStatus.IN_PROGRESS].value)
+                                  setStatusNumberValue(TicketStatuses[TicketStatus.IN_PROGRESS].valueNumber)
+                               } else {
+                                  await onStatusChanged({
+                                     path: patchTicketsFields.status,
+                                     value: TicketStatus.IN_PROGRESS
+                                  }, ticketId)
+                               }
+                               setShowStatusUpdates(false)
+                            }}>
                      {TicketStatus.IN_PROGRESS}
                   </span>
-                      <span className="status-options__option" onClick={() => {
-                         setStatus(TicketStatus.DONE)
-                         setStatusNumberValue(2)
-                         setShowStatusUpdates(false)
-                      }}>
+                      <span className="status-options__option"
+                            onClick={async () => {
+                               if (createMode) {
+                                  setStatus(TicketStatuses[TicketStatus.DONE].value)
+                                  setStatusNumberValue(TicketStatuses[TicketStatus.DONE].valueNumber)
+                               } else {
+                                  await onStatusChanged({
+                                     path: patchTicketsFields.status,
+                                     value: TicketStatus.DONE
+                                  }, ticketId)
+                               }
+                               setShowStatusUpdates(false)
+                            }}>
                      {TicketStatus.DONE}
                   </span>
                   </div>}
-
                </div>
             </div>
             <div className="ticket-form__left-side__element">
@@ -226,11 +339,30 @@ export default ({ handleClose }: { handleClose: Function }) => {
 
                </div>
             </div>
-            <button className="ticket-form__submit-button" onClick={() => {
-               onSubmitHandler()
+            {createMode && <button className="ticket-form__submit-button" onClick={async () => {
+               await onSubmitHandler()
                handleClose()
             }}>Create
-            </button>
+            </button>}
+            {editDescription &&
+            <button onClick={async () => {
+               const {
+                  error
+               } = await callAxios<ITicket>(`${API_BASE_URL}${UrlPaths.TICKETS}/${ticketId}`, {
+                  method: HttpMethods.PATCH,
+                  auth: true,
+                  requestBody: [ {
+                     path: '/description',
+                     op: 'replace',
+                     value: description
+                  } ]
+               })
+               if (!error) {
+                  setEditDescription(false)
+               }
+            }}>Save</button>}
+            {editDescription && <button onClick={() => setEditDescription(false)}>Cancel</button>
+            }
          </div>
       </div>
    )

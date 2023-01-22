@@ -10,7 +10,7 @@ import { RootState } from '../../redux/store'
 import { ticketLabel, ticketStatus, ticketType } from '../../services/Tickets'
 import { callAxios } from '../../utils/axios'
 import { API_BASE_URL } from '../../utils/env'
-import DescriptionSection from './DescriptionSection'
+import TicketForm from '../Forms/TicketForm'
 
 
 export default () => {
@@ -22,7 +22,7 @@ export default () => {
    const { boardId: boardId } = useSelector((state: RootState) => state.boardId)
    const [ searchParams, setSearchParams ] = useSearchParams()
    const [ user, setUser ] = useState<IUser>()
-   const [description, setDescription] = useState('')
+   const [ description, setDescription ] = useState('')
 
    let boardIdParam = searchParams.get('boardId')
 
@@ -44,17 +44,20 @@ export default () => {
    }, [ boardId ])
 
    useEffect(() => {
-      (async () => {
-            const {
-               data: ticket,
-               error: ticketError
-            } = await callAxios<ITicket>(`${API_BASE_URL}${UrlPaths.TICKETS}/${ticketId}`, {
-               method: HttpMethods.GET,
-               auth: true
-            })
-            !ticketError && ticket && setTicket(ticket)
-         }
-      )()
+      if(ticketId) {
+         (async () => {
+               const {
+                  data: ticketData,
+                  error: ticketError
+               } = await callAxios<ITicket>(`${API_BASE_URL}${UrlPaths.TICKETS}/${ticketId}`, {
+                  method: HttpMethods.GET,
+                  auth: true
+               })
+               !ticketError && ticketData && setTicket(ticketData)
+               console.log(ticketData)
+            }
+         )()
+      }
    }, [ ticketId ])
 
    useEffect(() => {
@@ -69,10 +72,6 @@ export default () => {
          !userError && userData && setUser(userData)
       })()
    }, [])
-
-   console.log(description)
-   console.log(ticket)
-
 
    return (
       <div className="tickets">
@@ -94,57 +93,18 @@ export default () => {
                </li>
             )}
          </ul>
-         <Modal
+         {ticket && <Modal
             open={open}
             onClose={handleClose}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
          >
-            <div className="tickets__ticket-modal">
-               <Box className="tickets-box">
-                  <div className="tickets__ticket-modal__right-side">
-                     <p className="tickets__ticket-modal__right-side__title">
-                        {ticket?.name}
-                     </p>
-                     <div className="tickets__ticket-modal__right-side__description">
-                        {ticket?.description}
-                     </div>
-                  </div>
-                  <div className="tickets__ticket-modal__left-side">
-                     <div className="tickets__ticket-modal__left-side__element">
-                        <span>Assignee</span>
-                        <p className="tickets__ticket-modal__left-side__element__name">
-                           {ticket?.assignee}
-                        </p>
-                     </div>
-                     <div className="tickets__ticket-modal__left-side__element">
-                        <span>
-                           Label
-                        </span>
-                        <p className="tickets__ticket-modal__left-side__element__name">
-                           {ticketLabel(ticket?.label)}
-                        </p>
-                     </div>
-                     <div className="tickets__ticket-modal__left-side__element">
-                        <span>
-                           Reporter
-                        </span>
-                        <p className="tickets__ticket-modal__left-side__element__name">
-                           {user?.name}
-                        </p>
-                     </div>
-                     <div className="tickets__ticket-modal__left-side__element">
-                        <span>
-                           Status
-                        </span>
-                        <p className="tickets__ticket-modal__left-side__element__name">
-                           {ticketStatus(ticket?.status)}
-                        </p>
-                     </div>
-                  </div>
+            <div className="create-ticket-modal__box">
+               <Box >
+                  <TicketForm handleClose={handleClose} ticketData={ticket!} createMode={false}/>
                </Box>
             </div>
-         </Modal>
+         </Modal>}
       </div>
    )
 
