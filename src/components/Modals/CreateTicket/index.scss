@@ -1,4 +1,7 @@
 .create-ticket-modal {
+  display: flex;
+  justify-content: flex-end;
+  margin: 2rem;
 
   &__box {
     position: absolute;
@@ -10,6 +13,17 @@
     border-radius: 1rem;
     border: 1px solid grey;
     background-color: white;
+  }
+
+  &__create-button {
+    width: 20rem;
+    height: 3rem;
+    color: #343434;
+    font-size: 1.5rem;
+    cursor: pointer;
+    background-color: #ffffff;
+    border: 1px solid grey;
+    border-radius: 2rem;
   }
 }
 

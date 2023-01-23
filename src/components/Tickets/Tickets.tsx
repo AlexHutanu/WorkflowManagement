@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useSearchParams } from 'react-router-dom'
 import { HttpMethods } from '../../constants/httpsMethods'
+import { TicketStatusNumber } from '../../constants/ticketValues'
 import { UrlPaths } from '../../constants/urlPaths'
 import { ITicket } from '../../interfaces/Ticket'
 import { IUser } from '../../interfaces/User'
@@ -44,7 +45,7 @@ export default () => {
    }, [ boardId ])
 
    useEffect(() => {
-      if(ticketId) {
+      if (ticketId) {
          (async () => {
                const {
                   data: ticketData,
@@ -73,37 +74,91 @@ export default () => {
       })()
    }, [])
 
+   const toDoTickets = tickets && tickets.filter(ticket => ticket.status === 0)
+   const inProgressTickets = tickets && tickets.filter(ticket => ticket.status === 1)
+   const doneTickets = tickets && tickets.filter(ticket => ticket.status === 2)
+
    return (
       <div className="tickets">
-         <ul className="tickets__list">
-            {tickets?.map((ticket) =>
-               <li className="tickets__list__ticket" key={ticket.id} onClick={() => {
-                  handleOpen()
-                  setTicketId(ticket.id)
-               }}>
+         <div className="tickets__categories">
+            <div className="tickets__categories__category">
+               <div className="tickets__categories__category__info">
+                  <p className="tickets__categories__category__info__name">TO DO</p>
+                  <p className="tickets__categories__category__info__no-of-tickets">{toDoTickets?.length} ISSUES</p>
+               </div>
+               <ul className="tickets__list">
+                  {toDoTickets?.map((ticket) =>
+                        <li className="tickets__list__ticket" key={ticket.id} onClick={() => {
+                           handleOpen()
+                           setTicketId(ticket.id)
+                        }}>
                   <span className="tickets__list__ticket__right-side">
-                     <p className="tickets__list__ticket__name">{ticket.name}</p>
-                     <p className="tickets__list__ticket__label">{ticketLabel(ticket.label)}</p>
-                     <p className="tickets__list__ticket__type">{ticketType[ticket.type]}</p>
+                     <p className="tickets__list__ticket__right-side__name">{ticket.name}</p>
                   </span>
-                  <span>
-                     <p className="tickets__list__ticket__status">{ticketStatus(ticket.status)}</p>
-                     <p className="tickets__list__ticket__reporter">{ticket.assignee}</p>
+                           <span className="tickets__list__ticket__left-side">
+                     <p className="tickets__list__ticket__left-side__status">{ticketLabel(ticket.label)}</p>
+                     <p className="tickets__list__ticket__left-side__type">{ticketType[ticket.type]}</p>
                   </span>
-               </li>
-            )}
-         </ul>
-         {ticket && <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-         >
-            <div className="create-ticket-modal__box">
-               <Box >
-                  <TicketForm handleClose={handleClose} ticketData={ticket!} createMode={false}/>
-               </Box>
+                        </li>
+                  )}
+               </ul>
             </div>
+            <div className="tickets__categories__category__category">
+               <div className="tickets__categories__category__info">
+                  <p className="tickets__categories__category__info__name">IN PROGRESS</p>
+                  <p className="tickets__categories__category__info__no-of-tickets">{inProgressTickets?.length} ISSUES</p>
+               </div>
+               <ul className="tickets__list">
+                  {inProgressTickets?.map((ticket) =>
+                        <li className="tickets__list__ticket" key={ticket.id} onClick={() => {
+                           handleOpen()
+                           setTicketId(ticket.id)
+                        }}>
+                  <span className="tickets__list__ticket__right-side">
+                     <p className="tickets__list__ticket__right-side__name">{ticket.name}</p>
+                  </span>
+                           <span className="tickets__list__ticket__left-side">
+                     <p className="tickets__list__ticket__left-side__status">{ticketLabel(ticket.label)}</p>
+                     <p className="tickets__list__ticket__left-side__type">{ticketType[ticket.type]}</p>
+                  </span>
+                        </li>
+                  )}
+               </ul>
+            </div>
+            <div className="tickets__categories__category">
+               <div className="tickets__categories__category__info">
+                  <p className="tickets__categories__category__info__name">DONE</p>
+                  <p className="tickets__categories__category__info__no-of-tickets">{doneTickets?.length} ISSUES</p>
+               </div>
+               <ul className="tickets__list">
+                  {doneTickets?.map((ticket) =>
+                        <li className="tickets__list__ticket" key={ticket.id} onClick={() => {
+                           handleOpen()
+                           setTicketId(ticket.id)
+                        }}>
+                  <span className="tickets__list__ticket__right-side">
+                     <p className="tickets__list__ticket__right-side__name">{ticket.name}</p>
+                  </span>
+                           <span className="tickets__list__ticket__left-side">
+                     <p className="tickets__list__ticket__left-side__status">{ticketLabel(ticket.label)}</p>
+                     <p className="tickets__list__ticket__left-side__type">{ticketType[ticket.type]}</p>
+                  </span>
+                        </li>
+                  )}
+               </ul>
+            </div>
+         </div>
+         {ticket && <Modal
+             open={open}
+             onClose={handleClose}
+             aria-labelledby="modal-modal-title"
+             aria-describedby="modal-modal-description"
+         >
+             <div className="create-ticket-modal__box">
+                 <Box>
+                     <TicketForm handleClose={handleClose} ticketData={ticket!} createMode={false}/>
+                 </Box>
+             </div>
          </Modal>}
       </div>
    )

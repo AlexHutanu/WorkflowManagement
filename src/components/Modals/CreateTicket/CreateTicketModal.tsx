@@ -12,7 +12,7 @@ export default () => {
 
    return (
       <div className="create-ticket-modal">
-         <Button onClick={handleOpen}>Create new ticket</Button>
+         <button className="create-ticket-modal__create-button"onClick={handleOpen}>CREATE NEW TICKET</button>
          <Modal
             open={open}
             onClose={handleClose}

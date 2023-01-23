@@ -41,10 +41,31 @@ export const TicketLabelsStatuses = {
    }
 }
 
+export const TicketTypeStatuses = {
+   [TicketType.TO_DO]: {
+      value: 'To Do',
+      valueNumber: 0
+   },
+   [TicketType.BUG_TICKET]: {
+      value: "Bug Ticket",
+      valueNumber: 1
+   },
+   [TicketType.FEATURE_REQUEST]: {
+      value: "Feature Request",
+      valueNumber: 2
+   }
+}
+
 export const TicketStatusNumber = {
    0: TicketStatus.TO_DO,
    1: TicketStatus.IN_PROGRESS,
    2: TicketStatus.DONE
+}
+
+export const TicketTypeNumber = {
+   0: TicketType.TO_DO,
+   1: TicketType.BUG_TICKET,
+   2: TicketType.FEATURE_REQUEST
 }
 
 export const TicketLabels = {
