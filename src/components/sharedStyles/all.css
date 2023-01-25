@@ -13,6 +13,90 @@
 .dashboard-page__wrapper {
   display: flex;
 }
+.dashboard-page__section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10rem;
+  height: 30rem;
+}
+.dashboard-page__section__progress-percentage {
+  display: flex;
+}
+.dashboard-page__section__progress-percentage__to-do {
+  position: absolute;
+  right: 95rem;
+  top: 60rem;
+}
+.dashboard-page__section__progress-percentage__to-do p {
+  position: absolute;
+  font-size: 2.5rem;
+  top: -12rem;
+  left: -25rem;
+}
+.dashboard-page__section__progress-percentage__in-progress {
+  position: absolute;
+  right: 60rem;
+  top: 60rem;
+}
+.dashboard-page__section__progress-percentage__in-progress p {
+  position: absolute;
+  font-size: 2.5rem;
+  top: -12rem;
+  left: -27rem;
+}
+.dashboard-page__section__progress-percentage__done {
+  position: absolute;
+  right: 20rem;
+  top: 60rem;
+}
+.dashboard-page__section__progress-percentage__done p {
+  position: absolute;
+  font-size: 2.5rem;
+  top: -12rem;
+  left: -24rem;
+}
+.dashboard-page__section__element {
+  background-color: #F4F5F7;
+  width: 25rem;
+  height: 8rem;
+  display: flex;
+  justify-content: space-between;
+}
+.dashboard-page__section__element__info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem;
+}
+.dashboard-page__section__element__info__number {
+  font-size: 3rem;
+}
+.dashboard-page__section__element__info__name {
+  font-size: 1.5rem;
+}
+.dashboard-page__section__element__icon {
+  padding: 0.5rem;
+}
+.dashboard-page__section__element__icon svg {
+  height: 3rem;
+  width: 3rem;
+}
+
+.css-1idz92c-MuiCircularProgress-svg {
+  position: absolute;
+  right: -9rem;
+  bottom: 15rem;
+  width: 20rem;
+  height: 20rem;
+}
+
+.circular-progress-percentage {
+  position: absolute;
+  bottom: 1rem;
+  right: 21rem;
+  font-size: 4rem;
+}
 
 .tickets-page {
   height: 100%;
@@ -167,7 +251,13 @@
   display: flex;
   justify-content: flex-end;
   font-size: 3rem;
-  width: 25rem;
+  width: 30rem;
+}
+.header__search-bar {
+  margin: 2rem;
+}
+.header__search-bar button {
+  cursor: pointer;
 }
 
 .tickets {
@@ -342,6 +432,104 @@
   margin-bottom: 1rem;
 }
 
+.auth-form {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10rem;
+  background-color: #f3f5f7;
+}
+.auth-form__title-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+}
+.auth-form__title-container__title {
+  font-size: 3rem;
+  font-weight: 600;
+}
+.auth-form__title-container__description {
+  font-size: 1.5rem;
+  width: 30rem;
+}
+.auth-form__form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2rem;
+  width: 60rem;
+  height: fit-content;
+  padding: 2rem;
+  min-height: 30rem;
+  gap: 3rem;
+  box-shadow: 0 0.5rem 2rem rgba(4, 3, 3, 0.2);
+  background: rgba(255, 255, 255, 0.6);
+}
+.auth-form__form h2 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #5d8bf4;
+}
+.auth-form__form__input {
+  text-align: center;
+  width: 20rem;
+  height: 4rem;
+  background-color: rgba(93, 139, 244, 0.5019607843);
+  border: none;
+  border-radius: 0.5rem;
+  color: white;
+  font-weight: 600;
+}
+.auth-form__form__input::placeholder {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+.auth-form__form__input ::-webkit-input-placeholder {
+  text-align: center;
+}
+.auth-form__form__input :-moz-placeholder {
+  text-align: center;
+}
+.auth-form__form__input:focus {
+  outline: none;
+}
+.auth-form__form__input:focus::placeholder {
+  color: transparent;
+}
+.auth-form__form__button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+.auth-form__form__button p {
+  color: #5d8bf4;
+  font-size: 1.2rem;
+}
+.auth-form__form__button p a {
+  color: #5d8bf4;
+  font-size: 1.2rem;
+}
+.auth-form__form__button__submit-button {
+  width: 10rem;
+  height: 3.5rem;
+  font-size: 1.5rem;
+  color: white;
+  border: none;
+  border-radius: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: rgba(0, 200, 151, 0.5019607843);
+}
+
 .ticket-form {
   display: flex;
   justify-content: space-between;
@@ -364,14 +552,17 @@
   flex-direction: column;
   justify-content: center;
   gap: 2rem;
+  margin: 2rem;
 }
 .ticket-form__left-side__element {
   display: flex;
-  gap: 3rem;
+  justify-content: center;
+  gap: 1rem;
 }
 .ticket-form__left-side__element span {
   font-size: 1.8rem;
   font-weight: 500;
+  width: 10rem;
 }
 .ticket-form__left-side__element__name {
   font-size: 2rem;
@@ -414,7 +605,15 @@
 
 .label-button {
   border: none;
-  width: 11rem;
+  width: 15rem;
+  font-size: 1.7rem;
+  cursor: pointer;
+  background-color: #F4F5F7;
+}
+
+.assignee-button {
+  border: none;
+  width: 15rem;
   font-size: 1.7rem;
   cursor: pointer;
   background-color: #F4F5F7;
@@ -426,8 +625,9 @@
   position: absolute;
   justify-content: center;
   align-items: center;
-  top: 55%;
+  top: 51.5%;
   left: 80%;
+  width: 15rem;
   height: 8rem;
   background-color: #F4F5F7;
   border: none;
@@ -449,11 +649,12 @@
   align-items: center;
   top: 68.5%;
   left: 80%;
+  width: 15rem;
   height: 8rem;
   background-color: #F4F5F7;
 }
 .type-options span {
-  width: 10rem;
+  width: 15rem;
   color: black;
   cursor: pointer;
   padding: 0.5rem;
@@ -463,7 +664,7 @@
 
 .type-button {
   border: none;
-  min-width: 11rem;
+  min-width: 15rem;
   width: fit-content;
   font-size: 1.7rem;
   cursor: pointer;
@@ -472,7 +673,7 @@
 
 .status-button {
   border: none;
-  width: 11rem;
+  width: 15rem;
   font-size: 1.7rem;
   cursor: pointer;
   background-color: #F4F5F7;
@@ -484,8 +685,9 @@
   position: absolute;
   justify-content: center;
   align-items: center;
-  top: 64%;
-  left: 81%;
+  width: 15rem;
+  top: 60%;
+  left: 80%;
   height: 10rem;
   background-color: #F4F5F7;
 }
@@ -509,8 +711,8 @@
 
 .users-list {
   position: absolute;
-  top: 47%;
-  width: 11rem;
+  top: 43%;
+  width: 15rem;
   height: 15rem;
   overflow: hidden;
   overflow-y: scroll;

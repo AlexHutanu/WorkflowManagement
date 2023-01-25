@@ -7,7 +7,7 @@ import { UrlPaths } from './constants/urlPaths'
 import AuthPage from './pages/AuthPage'
 import BoardPage from './pages/BoardPage'
 import DashboardPage from './pages/DashboardPage'
-import TicketsPage from './pages/TasksPage/TasksPage'
+import TicketsPage from './pages/MyIssuesPage/MyIssuesPage'
 
 
 export default () => {

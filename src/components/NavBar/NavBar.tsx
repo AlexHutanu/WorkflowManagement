@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { HttpMethods } from '../../constants/httpsMethods'
 import { UrlPaths } from '../../constants/urlPaths'
 import BoardIcon from '../../icons/BoardIcon'
+import ProjectIcon from '../../icons/ProjectIcon'
 import TicketIcon from '../../icons/TicketIcon'
 import { IUser } from '../../interfaces/User'
 import { setSearchModal } from '../../redux/searchModal'
@@ -12,6 +13,7 @@ import { callAxios } from '../../utils/axios'
 import { API_BASE_URL } from '../../utils/env'
 import { isTokenValid } from '../../utils/jwt'
 import { deleteFromLocalStorage } from '../../utils/localStorage'
+
 
 export default () => {
 
@@ -29,7 +31,10 @@ export default () => {
          navigate(UrlPaths.LOGIN)
       }
       (async () => {
-         const { data: userData, error: userError } = await callAxios<IUser>(`${API_BASE_URL}${UrlPaths.LOGGED_USER}`, {
+         const {
+            data: userData,
+            error: userError
+         } = await callAxios<IUser>(`${API_BASE_URL}${UrlPaths.LOGGED_USER}`, {
             method: HttpMethods.GET,
             auth: true
          })
@@ -48,7 +53,7 @@ export default () => {
          <div className="desktop-nav-bar__lower-section">
             <div className="desktop-nav-bar__lower-section__profile">
                <div className="desktop-nav-bar__lower-section__profile__picture">
-                  <img src="profile_picture.jpg" alt="profile picture"/>
+                  <img src="/profile_picture.jpg" alt="profile picture"/>
                </div>
                <p className="desktop-nav-bar__lower-section__profile__name">
                   {user?.name}
@@ -76,7 +81,7 @@ export default () => {
                   </p>
                </div>
                <div className="desktop-nav-bar__lower-section__links__element">
-                  <TicketIcon/>
+                  <ProjectIcon/>
                   <p className="desktop-nav-bar__lower-section__links__element__name"
                      onClick={() => dispatch(setSearchModal(!searchModal))
                      }>

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { HttpMethods } from '../../constants/httpsMethods'
 import { UrlPaths } from '../../constants/urlPaths'
+import SearchIcon from '../../icons/SearchIcon'
 import { IUser } from '../../interfaces/User'
 import { setSearchModal } from '../../redux/searchModal'
 import { RootState } from '../../redux/store'
@@ -32,7 +33,7 @@ export default () => {
       <div className="header">
          <p className="header__greet">Hello, {user?.name}</p>
          <div className="header__search-bar">
-            <button onClick={() => dispatch(setSearchModal(!searchModal))}>Click</button>
+            <button onClick={() => dispatch(setSearchModal(!searchModal))}><SearchIcon /></button>
             <SearchModal />
          </div>
       </div>

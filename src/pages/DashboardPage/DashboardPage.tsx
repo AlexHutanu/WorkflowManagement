@@ -1,8 +1,14 @@
 import { useEffect, useState } from 'react'
+import CircularStatic from '../../components/CircularProgress/CircularProgress'
 import NavBar from '../../components/NavBar'
 import Header from '../../components/Header'
 import { HttpMethods } from '../../constants/httpsMethods'
 import { UrlPaths } from '../../constants/urlPaths'
+import DoneIcon from '../../icons/DoneIcon'
+import InProgressIcon from '../../icons/InProgressIcon'
+import ProjectIcon from '../../icons/ProjectIcon'
+import { IBoard } from '../../interfaces/Board'
+import { ITicket } from '../../interfaces/Ticket'
 import { IUser } from '../../interfaces/User'
 import { callAxios } from '../../utils/axios'
 import { API_BASE_URL } from '../../utils/env'
@@ -10,18 +16,54 @@ import { API_BASE_URL } from '../../utils/env'
 
 export default () => {
 
-   const [user, setUser] = useState<IUser>()
+   const [ user, setUser ] = useState<IUser>()
+
+   const [ userTickets, setUserTickets ] = useState<ITicket[]>()
+
+   const [ noOfBoards, setNoOfBoards ] = useState<number>()
+
+   let inProgressTickets = userTickets && userTickets.filter(ticket => ticket.status === 1).length
+   let doneTickets = userTickets && userTickets.filter(ticket => ticket.status === 2).length
+   let toDoTickets = userTickets && userTickets.filter(ticket => ticket.status === 0).length
+
 
    useEffect(() => {
       (async () => {
-         const {data, error} = await callAxios<IUser>(`${API_BASE_URL}${UrlPaths.USER}`, {
+         const {
+            data: userData,
+            error: userError
+         } = await callAxios<IUser>(`${API_BASE_URL}${UrlPaths.LOGGED_USER}`, {
             method: HttpMethods.GET,
             auth: true
          })
-         !error && data && setUser(data)
+         !userError && userData && setUser(userData)
+         const {
+            data: boardsData,
+            error: boardsError
+         } = await callAxios<IBoard[]>(`${API_BASE_URL}${UrlPaths.BOARDS}`, {
+            method: HttpMethods.GET,
+            auth: true
+         })
+
+         !boardsError && boardsData && setNoOfBoards(boardsData.length)
       })()
    }, [])
 
+
+   useEffect(() => {
+      if (user) {
+         (async () => {
+            const {
+               data: userTicketsData,
+               error: useTicketsError
+            } = await callAxios<ITicket[]>(`${API_BASE_URL}${UrlPaths.TICKETS}/${user.id}/usertickets`, {
+               method: HttpMethods.GET,
+               auth: true
+            })
+            !useTicketsError && userTicketsData && setUserTickets(userTicketsData)
+         })()
+      }
+   }, [ user ])
 
    return (
       <div className="dashboard-page__wrapper">
@@ -30,7 +72,63 @@ export default () => {
          </div>
          <div className="dashboard-page">
             <Header/>
-            <p>DASHBOARD</p>
+            <div className="dashboard-page__section">
+               <div className="dashboard-page__section__element">
+                  <div className="dashboard-page__section__element__info">
+                     <p className="dashboard-page__section__element__info__number">
+                        {inProgressTickets}
+                     </p>
+                     <p className="dashboard-page__section__element__info__name">
+                        Tasks in progress
+                     </p>
+                  </div>
+                  <div className="dashboard-page__section__element__icon">
+                     <InProgressIcon/>
+                  </div>
+               </div>
+               <div className="dashboard-page__section__element">
+                  <div className="dashboard-page__section__element__info">
+                     <p className="dashboard-page__section__element__info__number">
+                        {doneTickets}
+                     </p>
+                     <p className="dashboard-page__section__element__info__name">
+                        Completed tickets
+                     </p>
+                  </div>
+                  <div className="dashboard-page__section__element__icon">
+                     <DoneIcon/>
+                  </div>
+               </div>
+               <div className="dashboard-page__section__element">
+                  <div className="dashboard-page__section__element__info">
+                     <p className="dashboard-page__section__element__info__number">
+                        {noOfBoards}
+                     </p>
+                     <p className="dashboard-page__section__element__info__name">
+                        On going boards
+                     </p>
+                  </div>
+                  <div className="dashboard-page__section__element__icon">
+                     <ProjectIcon/>
+                  </div>
+               </div>
+            </div>
+            <div className="dashboard-page__progress-percentage">
+               <div className="dashboard-page__section__progress-percentage__to-do">
+                  <p>To Do</p>
+                  <CircularStatic noTickets={toDoTickets} noTotalTickets={userTickets?.length}/>
+               </div>
+               <div className="dashboard-page__section__progress-percentage__in-progress">
+                  <p>In Progress</p>
+                  <CircularStatic noTickets={inProgressTickets} noTotalTickets={userTickets?.length}/>
+               </div>
+               <div className="dashboard-page__section__progress-percentage__done">
+                  <p>Done</p>
+                  <CircularStatic noTickets={doneTickets} noTotalTickets={userTickets?.length}/>
+               </div>
+            </div>
+            <div className="dashboard-page__section">
+            </div>
          </div>
       </div>
    )

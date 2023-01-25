@@ -1,0 +1,112 @@
+.auth-form {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10rem;
+  background-color: #f3f5f7;
+
+  &__title-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+
+    &__title {
+      font-size: 3rem;
+      font-weight: 600;
+    }
+
+    &__description {
+      font-size: 1.5rem;
+      width: 30rem;
+    }
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 2rem;
+    width: 60rem;
+    height: fit-content;
+    padding: 2rem;
+    min-height: 30rem;
+    gap: 3rem;
+    box-shadow: 0 0.5rem 2rem #04030333;
+    background: rgba(255,255,255,.6);
+
+    & h2 {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #5d8bf4;
+    }
+
+    &__input {
+      text-align: center;
+      width: 20rem;
+      height: 4rem;
+      background-color: #5d8bf480;
+      border: none;
+      border-radius: .5rem;
+      color: white;
+      font-weight: 600;
+
+      &::placeholder {
+        color: white;
+        font-size: 1.5rem;
+        font-weight: 600;
+      }
+
+      ::-webkit-input-placeholder {
+        text-align: center;
+      }
+
+      :-moz-placeholder {
+        text-align: center;
+      }
+
+      &:focus {
+        outline: none;
+        &::placeholder {
+          color: transparent;
+        }
+      }
+    }
+
+    &__button {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+
+      & p {
+        color: #5d8bf4;
+        font-size: 1.2rem;
+
+        & a {
+          color: #5d8bf4;
+          font-size: 1.2rem;
+        }
+      }
+
+      &__submit-button {
+        width: 10rem;
+        height: 3.5rem;
+        font-size: 1.5rem;
+        color: white;
+        border: none;
+        border-radius: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        background: #00c89780;
+      }
+    }
+  }
+
+}

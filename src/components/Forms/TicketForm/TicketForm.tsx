@@ -11,7 +11,6 @@ import {
    TicketType, TicketTypeNumber, TicketTypeStatuses
 } from '../../../constants/ticketValues'
 import { UrlPaths } from '../../../constants/urlPaths'
-import useDebounce from '../../../hooks/useDebounce'
 import { ITicket } from '../../../interfaces/Ticket'
 import { IUser } from '../../../interfaces/User'
 import { callAxios } from '../../../utils/axios'
@@ -48,6 +47,7 @@ export default ({
    const [ name, setName ] = useState('')
    const [ ticketId, setTicketId ] = useState('')
    const [ reporter, setReporter ] = useState('')
+   const [assignedUserName, setAssignedUserName] = useState('')
 
    const [ labelNumberValue, setLabelNumberValue ] = useState<number>()
    const [ statusNumberValue, setStatusNumberValue ] = useState<number>()
@@ -58,7 +58,6 @@ export default ({
    let boardIdParam = searchParams.get('boardId')
 
    const onStatusChanged = async (patchField: IPatchField, ticketId: string) => {
-
       let patchValue
       if (patchField.path === '/status') {
          patchValue = TicketStatuses[patchField.value as TicketStatus].valueNumber
@@ -151,7 +150,6 @@ export default ({
       })()
    }, [ ticketData ])
 
-
    useEffect(() => {
       (async () => {
          const {
@@ -168,12 +166,16 @@ export default ({
    return (
       <div className="ticket-form">
          <div className="ticket-form__right-side">
-            <input className="ticket-form__right-side__title-input" type="text"
+            <input className="ticket-form__right-side__title-input"
+                   type="text"
                    value={name}
-                   placeholder="Write a title..." onChange={(e) => setName(e.target.value)}/>
+                   placeholder="Write a title..."
+                   onChange={(e) => setName(e.target.value)}/>
             <div className="ticket-form__description">
-               <DescriptionSection setDescription={setDescription} value={description}
-                                   setEditDescription={setEditDescription}/>
+               <DescriptionSection
+                  setDescription={setDescription}
+                  value={description}
+                  setEditDescription={setEditDescription}/>
             </div>
          </div>
          <div className="ticket-form__left-side">
@@ -188,21 +190,23 @@ export default ({
             <div className="ticket-form__left-side__element">
                <span>Assignee</span>
                <div className="ticket-form__left-side__element__select">
-                  <button className="label-button"
+                  <button className="assignee-button"
                           onClick={() => setShowUsers(prev => !prev)}>
-                     {assignedUser ? assignedUser : 'Select user'}
+                     {assignedUserName ? assignedUserName : 'Select user'}
                   </button>
                   {showUsers &&
                   <ul className="users-list">
                      {users?.map((user) =>
                         <li className="assigned-user" onClick={async () => {
                            if (createMode) {
-                              setAssignedUser(user.name)
+                              setAssignedUser(user.id)
+                              setAssignedUserName(user.name)
                            } else {
                               await onStatusChanged({
                                  path: patchTicketsFields.assignee,
                                  value: user.name
                               }, ticketId)
+                              setAssignedUserName(user.name)
                            }
                            setShowUsers(false)
                         }} key={user.id}>{user.name}</li>
@@ -269,7 +273,6 @@ export default ({
                            if (createMode) {
                               setStatus(TicketStatuses[TicketStatus.TO_DO].value)
                               setStatusNumberValue(TicketStatuses[TicketStatus.TO_DO].valueNumber)
-                              setShowStatusUpdates(false)
                            } else {
                               await onStatusChanged({
                                  path: patchTicketsFields.status,
@@ -277,6 +280,7 @@ export default ({
                               }, ticketId)
                            }
                            setShowStatusUpdates(false)
+                           handleClose()
                         }}>
                      {TicketStatus.TO_DO}
                   </span>
@@ -292,6 +296,7 @@ export default ({
                                   }, ticketId)
                                }
                                setShowStatusUpdates(false)
+                               handleClose()
                             }}>
                      {TicketStatus.IN_PROGRESS}
                   </span>
@@ -307,6 +312,7 @@ export default ({
                                   }, ticketId)
                                }
                                setShowStatusUpdates(false)
+                               handleClose()
                             }}>
                      {TicketStatus.DONE}
                   </span>
@@ -318,12 +324,12 @@ export default ({
                   Type
                </span>
                <div className="ticket-form__left-side__element__select">
-                  <button className="label-button"
+                  <button className="type-button"
                           onClick={() => setShowTypes(prev => !prev)}>
                      {type ? type : 'Select type'}
                   </button>
-                  {showTypes && <div className="label-options">
-                     <span className="label-options__option" onClick={async () => {
+                  {showTypes && <div className="type-options">
+                     <span className="type-options__option" onClick={async () => {
                         if (createMode) {
                            setType(TicketTypeStatuses[TicketType.TO_DO].value)
                            setTypeNumberValue(TicketTypeStatuses[TicketType.TO_DO].valueNumber)
@@ -337,7 +343,7 @@ export default ({
                      }}>
                      {TicketType.TO_DO}
                   </span>
-                      <span className="label-options__option" onClick={async () => {
+                      <span className="type-options__option" onClick={async () => {
                          if (createMode) {
                             setType(TicketTypeStatuses[TicketType.BUG_TICKET].value)
                             setTypeNumberValue(TicketTypeStatuses[TicketType.BUG_TICKET].valueNumber)
@@ -351,7 +357,7 @@ export default ({
                       }}>
                          {TicketType.BUG_TICKET}
                   </span>
-                      <span className="label-options__option" onClick={async () => {
+                      <span className="type-options__option" onClick={async () => {
                          if (createMode) {
                             setType(TicketTypeStatuses[TicketType.FEATURE_REQUEST].value)
                             setTypeNumberValue(TicketTypeStatuses[TicketType.FEATURE_REQUEST].valueNumber)

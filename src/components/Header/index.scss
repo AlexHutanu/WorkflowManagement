@@ -10,6 +10,14 @@
     display: flex;
     justify-content: flex-end;
     font-size: 3rem;
-    width: 25rem;
+    width: 30rem;
+  }
+
+  &__search-bar {
+    margin: 2rem;
+
+    & button {
+      cursor: pointer;
+    }
   }
 }
