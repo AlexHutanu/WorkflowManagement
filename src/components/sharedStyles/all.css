@@ -7,61 +7,49 @@
 }
 
 .dashboard-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   height: 100%;
   width: 100%;
+  flex-shrink: 1;
+  background-color: #5d8bf4;
 }
 .dashboard-page__wrapper {
   display: flex;
+  height: 100vh;
+}
+.dashboard-page__sections {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-top-left-radius: 2rem;
+  box-shadow: 0 0 1rem white;
+}
+.dashboard-page__section:nth-child(1) {
+  border-top-left-radius: 1rem;
 }
 .dashboard-page__section {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
   gap: 10rem;
-  height: 30rem;
-}
-.dashboard-page__section__progress-percentage {
-  display: flex;
-}
-.dashboard-page__section__progress-percentage__to-do {
-  position: absolute;
-  right: 95rem;
-  top: 60rem;
-}
-.dashboard-page__section__progress-percentage__to-do p {
-  position: absolute;
-  font-size: 2.5rem;
-  top: -12rem;
-  left: -25rem;
-}
-.dashboard-page__section__progress-percentage__in-progress {
-  position: absolute;
-  right: 60rem;
-  top: 60rem;
-}
-.dashboard-page__section__progress-percentage__in-progress p {
-  position: absolute;
-  font-size: 2.5rem;
-  top: -12rem;
-  left: -27rem;
-}
-.dashboard-page__section__progress-percentage__done {
-  position: absolute;
-  right: 20rem;
-  top: 60rem;
-}
-.dashboard-page__section__progress-percentage__done p {
-  position: absolute;
-  font-size: 2.5rem;
-  top: -12rem;
-  left: -24rem;
+  background-color: white;
+  height: 50%;
 }
 .dashboard-page__section__element {
-  background-color: #F4F5F7;
+  border-radius: 1rem;
+  box-shadow: 0 0.5rem 2rem #5d8bf4;
   width: 25rem;
   height: 8rem;
   display: flex;
   justify-content: space-between;
+  background-color: #5d8bf4;
 }
 .dashboard-page__section__element__info {
   display: flex;
@@ -70,15 +58,18 @@
   padding: 2rem;
 }
 .dashboard-page__section__element__info__number {
+  color: white;
   font-size: 3rem;
 }
 .dashboard-page__section__element__info__name {
+  color: white;
   font-size: 1.5rem;
 }
 .dashboard-page__section__element__icon {
   padding: 0.5rem;
 }
 .dashboard-page__section__element__icon svg {
+  color: white;
   height: 3rem;
   width: 3rem;
 }
@@ -176,7 +167,8 @@
   width: 25rem;
   height: 100vh;
   gap: 5rem;
-  border-right: 1px solid grey;
+  color: white;
+  background-color: #5d8bf4;
 }
 .desktop-nav-bar__upper-section {
   display: flex;
@@ -184,12 +176,12 @@
   align-items: center;
   width: 100%;
   height: 7%;
-  border-bottom: 1px solid grey;
 }
 .desktop-nav-bar__upper-section__title {
   font-size: 2rem;
   font-weight: 700;
   cursor: pointer;
+  color: white;
 }
 .desktop-nav-bar__lower-section {
   display: flex;
@@ -211,12 +203,16 @@
   width: 12rem;
   height: 12rem;
   object-fit: cover;
+  border: 2px solid white;
+  box-shadow: 0 0rem 1rem white;
 }
 .desktop-nav-bar__lower-section__profile__name {
   font-size: 2rem;
+  color: white;
+  font-weight: 500;
 }
 .desktop-nav-bar__lower-section__profile__mail-address {
-  color: grey;
+  color: white;
   font-size: 1.5rem;
 }
 .desktop-nav-bar__lower-section__links {
@@ -229,14 +225,30 @@
   cursor: pointer;
   display: flex;
   align-items: center;
+  justify-content: center;
+  box-shadow: 0 0.5rem 2rem rgba(4, 3, 3, 0.2);
   gap: 0.5rem;
+  width: 20rem;
+  height: 5rem;
+  border-radius: 2rem;
+  background-color: #f3f5f7;
 }
 .desktop-nav-bar__lower-section__links__element__name {
   font-size: 2.5rem;
+  color: black;
+}
+.desktop-nav-bar__lower-section__links__element svg {
+  color: black;
 }
 .desktop-nav-bar__lower-section__links__element:hover {
-  transform: translateX(0.4rem);
-  color: #054DA7;
+  transform: translateY(-0.4rem) scale(1.03);
+  transition: 0.2s all;
+  box-shadow: 0.5rem 1rem 2rem rgba(4, 3, 3, 0.2);
+  color: rgba(93, 139, 244, 0.5019607843);
+}
+.desktop-nav-bar__lower-section__links__element:active {
+  transform: translateY(0) scale(1);
+  box-shadow: 0 0.5rem 2rem rgba(4, 3, 3, 0.2);
 }
 
 .header {
@@ -245,19 +257,65 @@
   justify-content: space-between;
   width: 100%;
   height: 6.7rem;
-  border-bottom: 0.1px solid grey;
+  background-color: #5d8bf4;
+  color: white;
 }
 .header__greet {
   display: flex;
   justify-content: flex-end;
   font-size: 3rem;
   width: 30rem;
+  color: white;
+  font-weight: 500;
 }
 .header__search-bar {
+  display: flex;
+  gap: 2rem;
   margin: 2rem;
 }
 .header__search-bar button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
+  height: 4rem;
+  width: 4rem;
+  border-radius: 1rem;
+  background-color: white;
+  border: none;
+  box-shadow: 0 0 0.5rem white;
+  transition: 0.2s all;
+}
+.header__search-bar button:hover {
+  width: 10rem;
+}
+.header__search-bar button:hover .header__search-bar__text {
+  display: unset;
+  width: fit-content;
+  opacity: 1;
+}
+.header__search-bar__text {
+  display: none;
+  font-size: 1.5rem;
+  width: 0;
+  opacity: 0;
+}
+.header__button__logout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  height: 4rem;
+  width: 8rem !important;
+  border-radius: 1rem;
+  background-color: white;
+  border: none;
+  box-shadow: 0 0 0.5rem white;
+  transition: 0.2s all;
+  color: #5d8bf4;
+}
+.header__button__logout:hover {
+  width: 10rem !important;
 }
 
 .tickets {
@@ -577,7 +635,7 @@
   left: 80%;
   width: 10rem;
   height: 3rem;
-  background-color: #054DA7;
+  background-color: rgba(93, 139, 244, 0.5019607843);
   color: white;
   border: none;
   cursor: pointer;
@@ -866,6 +924,45 @@
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+.progress-monolith {
+  display: flex;
+  align-items: flex-end;
+  min-height: 30rem;
+  height: 50%;
+  width: 15rem;
+  background-image: linear-gradient(to top, white, rgba(93, 139, 244, 0.3));
+  border-radius: 2rem;
+}
+.progress-monolith__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  height: 100%;
+}
+.progress-monolith__wrapper p {
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  width: 100%;
+  text-align: center;
+  color: #5d8bf4;
+}
+.progress-monolith__percentage {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 1rem;
+  background-color: #5d8bf4;
+  border-top-left-radius: 2rem;
+  border-top-right-radius: 2rem;
+  box-shadow: 0 0.5rem 1rem #5d8bf4;
+  width: 100%;
+}
+.progress-monolith__percentage p {
+  font-size: 3rem;
+  color: white;
 }
 
 html, body, div, span, applet, object, iframe,

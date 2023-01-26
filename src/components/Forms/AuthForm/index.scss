@@ -6,7 +6,7 @@
   justify-content: center;
   align-items: center;
   gap: 10rem;
-  background-color: #f3f5f7;
+  background-color: $white;
 
   &__title-container {
     display: flex;
@@ -50,7 +50,7 @@
       text-align: center;
       width: 20rem;
       height: 4rem;
-      background-color: #5d8bf480;
+      background-color: $blue;
       border: none;
       border-radius: .5rem;
       color: white;

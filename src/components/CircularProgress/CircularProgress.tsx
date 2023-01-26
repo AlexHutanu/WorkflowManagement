@@ -1,37 +1,21 @@
-import * as React from 'react';
-import CircularProgress, {
-   CircularProgressProps,
-} from '@mui/material/CircularProgress';
-import Box from '@mui/material/Box';
+export default ({ noTickets, noTotalTickets, ticketStatus}: { noTickets: number, noTotalTickets: number, ticketStatus: string }) => {
 
-function CircularProgressWithLabel(
-   props: CircularProgressProps & { value: number },
-) {
-   return (
-      <Box sx={{
-         position: 'relative',
-         display: 'flex',
-         justifyContent: 'center',
-         alignItems: 'center'}}>
-         <div className="circular-progress-percentage">{Math.round(props.value)}%</div>
-         <CircularProgress variant="determinate" {...props} />
-      </Box>
-   );
-}
+   return <>
+      <div className="progress-monolith__wrapper">
+         <div className="progress-monolith">
+            <div className="progress-monolith__percentage"
+                 style={{
+                    height: `${(noTickets / noTotalTickets) * 100 < 1 ? 1 : (noTickets / noTotalTickets) * 100}%`
+                 }}>
+               <p style={{
+                  position: `${(noTickets / noTotalTickets) * 100 < 1 ? 'absolute' : 'relative'}`,
+                  top: `${(noTickets / noTotalTickets) * 100 < 1 ? '-4rem' : 'unset'}`,
+                  color: `${(noTickets / noTotalTickets) * 100 < 1 ? '#5d8bf4' : 'white'}`
+               }}>{(noTickets / noTotalTickets) * 100}%</p>
+            </div>
+         </div>
+         <p>{ticketStatus}</p>
+      </div>
 
-const percentage = (value: number| undefined, totalValue: number | undefined) => {
-
-   if (value && totalValue) {
-      return (value / totalValue) * 100
-   }
-}
-
-export default function CircularStatic({noTickets, noTotalTickets}: {noTickets: number | undefined, noTotalTickets: number | undefined}) {
-   const [progress, setProgress] = React.useState(2);
-
-   React.useEffect(() => {
-         setProgress(percentage(noTickets, noTotalTickets))
-      }, );
-
-   return <CircularProgressWithLabel value={progress} />;
+   </>
 }

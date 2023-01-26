@@ -47,13 +47,15 @@ export default () => {
       <div className="desktop-nav-bar">
          <div className="desktop-nav-bar__upper-section">
             <p className="desktop-nav-bar__upper-section__title" onClick={() => navigate('/')}>
-               Workflow manager
+               Workflow Manager
             </p>
          </div>
          <div className="desktop-nav-bar__lower-section">
             <div className="desktop-nav-bar__lower-section__profile">
                <div className="desktop-nav-bar__lower-section__profile__picture">
-                  <img src="/profile_picture.jpg" alt="profile picture"/>
+                  <img
+                     src={`https://avatars.abstractapi.com/v1/?api_key=d62aae293278420a97a702733b89c8fb&name=${user?.name}`}
+                     alt="profile picture"/>
                </div>
                <p className="desktop-nav-bar__lower-section__profile__name">
                   {user?.name}
@@ -63,28 +65,30 @@ export default () => {
                </p>
             </div>
             <div className="desktop-nav-bar__lower-section__links">
-               <div className="desktop-nav-bar__lower-section__links__element">
+               <div className="desktop-nav-bar__lower-section__links__element"
+                    onClick={() => navigate('/')
+                    }>
                   <BoardIcon/>
                   <p className="desktop-nav-bar__lower-section__links__element__name"
-                     onClick={() => navigate('/')
-                     }>
+                  >
                      Dashboard
                   </p>
                </div>
 
-               <div className="desktop-nav-bar__lower-section__links__element">
-                  <TicketIcon/>
-                  <p className="desktop-nav-bar__lower-section__links__element__name"
-                     onClick={() => navigate('/tickets')
-                     }>
-                     Tasks
+               <div className="desktop-nav-bar__lower-section__links__element"
+                    onClick={() => navigate('/tickets')
+                    }>
+                  <ProjectIcon/>
+                  <p className="desktop-nav-bar__lower-section__links__element__name">
+                     My Issues
                   </p>
                </div>
-               <div className="desktop-nav-bar__lower-section__links__element">
-                  <ProjectIcon/>
+               <div className="desktop-nav-bar__lower-section__links__element"
+                    onClick={() => dispatch(setSearchModal(!searchModal))
+                    }>
+                  <TicketIcon/>
                   <p className="desktop-nav-bar__lower-section__links__element__name"
-                     onClick={() => dispatch(setSearchModal(!searchModal))
-                     }>
+                  >
                      Boards
                   </p>
                </div>

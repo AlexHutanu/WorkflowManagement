@@ -1,9 +1,11 @@
-import { SyntheticEvent, useState } from 'react'
+import { SyntheticEvent, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { HttpMethods } from '../../../constants/httpsMethods'
 import { UrlPaths } from '../../../constants/urlPaths'
 import { IAuth } from '../../../interfaces/Auth'
 import { callAxios } from '../../../utils/axios'
 import { API_BASE_URL } from '../../../utils/env'
+import { isTokenValid } from '../../../utils/jwt'
 import { setToLocalStorage } from '../../../utils/localStorage'
 
 
@@ -17,6 +19,12 @@ export default ({ formType }: { formType: FormType }) => {
    const [ name, setName ] = useState('')
    const [ email, setEmail ] = useState('')
    const [ password, setPassword ] = useState('')
+
+   const navigate = useNavigate()
+
+   useEffect(() => {
+      isTokenValid() && navigate(UrlPaths.DASHBOARD)
+   }, [])
 
    const submit = async (e: SyntheticEvent) => {
       e.preventDefault()
@@ -48,7 +56,13 @@ export default ({ formType }: { formType: FormType }) => {
          requestBody
       })
 
-      !error && data && setToLocalStorage(({ key: 'token', value: data.token }))
+
+      if (!error && FormType.SIGNIN === formType) {
+         data && setToLocalStorage(({ key: 'token', value: data.token }))
+         navigate(UrlPaths.DASHBOARD)
+      } else if (!error && FormType.SIGNUP === formType) {
+         navigate(UrlPaths.LOGIN)
+      }
    }
 
 

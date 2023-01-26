@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import CircularStatic from '../../components/CircularProgress/CircularProgress'
+import CircularProgress from '../../components/CircularProgress/CircularProgress'
 import NavBar from '../../components/NavBar'
 import Header from '../../components/Header'
 import { HttpMethods } from '../../constants/httpsMethods'
@@ -25,7 +25,6 @@ export default () => {
    let inProgressTickets = userTickets && userTickets.filter(ticket => ticket.status === 1).length
    let doneTickets = userTickets && userTickets.filter(ticket => ticket.status === 2).length
    let toDoTickets = userTickets && userTickets.filter(ticket => ticket.status === 0).length
-
 
    useEffect(() => {
       (async () => {
@@ -72,62 +71,59 @@ export default () => {
          </div>
          <div className="dashboard-page">
             <Header/>
-            <div className="dashboard-page__section">
-               <div className="dashboard-page__section__element">
-                  <div className="dashboard-page__section__element__info">
-                     <p className="dashboard-page__section__element__info__number">
-                        {inProgressTickets}
-                     </p>
-                     <p className="dashboard-page__section__element__info__name">
-                        Tasks in progress
-                     </p>
+            <div className="dashboard-page__sections">
+               <div className="dashboard-page__section">
+                  <div className="dashboard-page__section__element">
+                     <div className="dashboard-page__section__element__info">
+                        <p className="dashboard-page__section__element__info__number">
+                           {inProgressTickets}
+                        </p>
+                        <p className="dashboard-page__section__element__info__name">
+                           Tasks in progress
+                        </p>
+                     </div>
+                     <div className="dashboard-page__section__element__icon">
+                        <InProgressIcon/>
+                     </div>
                   </div>
-                  <div className="dashboard-page__section__element__icon">
-                     <InProgressIcon/>
+                  <div className="dashboard-page__section__element">
+                     <div className="dashboard-page__section__element__info">
+                        <p className="dashboard-page__section__element__info__number">
+                           {doneTickets}
+                        </p>
+                        <p className="dashboard-page__section__element__info__name">
+                           Completed tickets
+                        </p>
+                     </div>
+                     <div className="dashboard-page__section__element__icon">
+                        <DoneIcon/>
+                     </div>
+                  </div>
+                  <div className="dashboard-page__section__element">
+                     <div className="dashboard-page__section__element__info">
+                        <p className="dashboard-page__section__element__info__number">
+                           {noOfBoards}
+                        </p>
+                        <p className="dashboard-page__section__element__info__name">
+                           On going boards
+                        </p>
+                     </div>
+                     <div className="dashboard-page__section__element__icon">
+                        <ProjectIcon/>
+                     </div>
                   </div>
                </div>
-               <div className="dashboard-page__section__element">
-                  <div className="dashboard-page__section__element__info">
-                     <p className="dashboard-page__section__element__info__number">
-                        {doneTickets}
-                     </p>
-                     <p className="dashboard-page__section__element__info__name">
-                        Completed tickets
-                     </p>
-                  </div>
-                  <div className="dashboard-page__section__element__icon">
-                     <DoneIcon/>
-                  </div>
+               <div className="dashboard-page__section">
+                  <CircularProgress noTickets={toDoTickets ?? 0}
+                                    noTotalTickets={userTickets?.length ?? 0}
+                                    ticketStatus={'To Do'}/>
+                  <CircularProgress noTickets={inProgressTickets ?? 0}
+                                    noTotalTickets={userTickets?.length ?? 0}
+                                    ticketStatus={'In Progress'}/>
+                  <CircularProgress noTickets={doneTickets ?? 0}
+                                    noTotalTickets={userTickets?.length ?? 0}
+                                    ticketStatus={'Done'}/>
                </div>
-               <div className="dashboard-page__section__element">
-                  <div className="dashboard-page__section__element__info">
-                     <p className="dashboard-page__section__element__info__number">
-                        {noOfBoards}
-                     </p>
-                     <p className="dashboard-page__section__element__info__name">
-                        On going boards
-                     </p>
-                  </div>
-                  <div className="dashboard-page__section__element__icon">
-                     <ProjectIcon/>
-                  </div>
-               </div>
-            </div>
-            <div className="dashboard-page__progress-percentage">
-               <div className="dashboard-page__section__progress-percentage__to-do">
-                  <p>To Do</p>
-                  <CircularStatic noTickets={toDoTickets} noTotalTickets={userTickets?.length}/>
-               </div>
-               <div className="dashboard-page__section__progress-percentage__in-progress">
-                  <p>In Progress</p>
-                  <CircularStatic noTickets={inProgressTickets} noTotalTickets={userTickets?.length}/>
-               </div>
-               <div className="dashboard-page__section__progress-percentage__done">
-                  <p>Done</p>
-                  <CircularStatic noTickets={doneTickets} noTotalTickets={userTickets?.length}/>
-               </div>
-            </div>
-            <div className="dashboard-page__section">
             </div>
          </div>
       </div>
