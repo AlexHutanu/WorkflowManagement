@@ -11,11 +11,12 @@ import { callAxios } from '../../utils/axios'
 import { API_BASE_URL } from '../../utils/env'
 import Ticket from '../Ticket/Ticket'
 
-export default ({userId}: {userId?: string}) => {
-   const [ tickets, setTickets ] = useState<ITicket[]>()
+export default () => {
+
    const { boardId: boardId } = useSelector((state: RootState) => state.boardId)
    const [ searchParams ] = useSearchParams()
    const [ user, setUser ] = useState<IUser>()
+   const [updateTickets, setUpdateTickets] = useState(false)
 
    const [todoTickets, setTodoTickets] = useState<ITicket[] | undefined>([])
    const [inProgressTickets, setInProgressTickets] = useState<ITicket[] | undefined>([])
@@ -32,9 +33,13 @@ export default ({userId}: {userId?: string}) => {
             method: HttpMethods.GET,
             auth: true
          })
-         !ticketsError && tickets && setTickets(tickets)
+         if (!ticketsError && tickets) {
+            setTodoTickets(tickets && tickets.filter(ticket => ticket.status === 0))
+            setInProgressTickets(tickets && tickets.filter(ticket => ticket.status === 1))
+            setDoneTickets(tickets && tickets.filter(ticket => ticket.status === 2))
+         }
       })()
-   }, [boardId, todoTickets, inProgressTickets, doneTickets])
+   }, [boardId, updateTickets])
 
    useEffect(() => {
       (async () => {
@@ -49,12 +54,6 @@ export default ({userId}: {userId?: string}) => {
       })()
    }, [])
 
-   useEffect(() => {
-      setTodoTickets(tickets && tickets.filter(ticket => ticket.status === 0))
-      setInProgressTickets(tickets && tickets.filter(ticket => ticket.status === 1))
-      setDoneTickets(tickets && tickets.filter(ticket => ticket.status === 2))
-   }, [tickets])
-
 
 
    return (
@@ -67,7 +66,7 @@ export default ({userId}: {userId?: string}) => {
                </div>
                <ul className="tickets__list">
                   {todoTickets?.map((ticket) =>
-                     <Ticket ticketId={ticket.id} />
+                     <Ticket ticketId={ticket.id} setUpdateTickets={setUpdateTickets}/>
                   )}
                </ul>
             </div>
@@ -78,7 +77,7 @@ export default ({userId}: {userId?: string}) => {
                </div>
                <ul className="tickets__list">
                   {inProgressTickets?.map((ticket) =>
-                     <Ticket ticketId={ticket.id} />
+                     <Ticket ticketId={ticket.id} setUpdateTickets={setUpdateTickets}/>
                   )}
                </ul>
             </div>
@@ -89,7 +88,7 @@ export default ({userId}: {userId?: string}) => {
                </div>
                <ul className="tickets__list">
                   {doneTickets?.map((ticket) =>
-                     <Ticket ticketId={ticket.id} />
+                     <Ticket ticketId={ticket.id} setUpdateTickets={setUpdateTickets}/>
                   )}
                </ul>
             </div>

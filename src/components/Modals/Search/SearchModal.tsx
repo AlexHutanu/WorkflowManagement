@@ -6,15 +6,18 @@ import { UrlPaths } from '../../../constants/urlPaths'
 import useDebounce from '../../../hooks/useDebounce'
 import { IBoard } from '../../../interfaces/Board'
 import { ITicket } from '../../../interfaces/Ticket'
+import { setShowBoardsSearchModal } from '../../../redux/showBoardsSearchModal'
 import { setSearchModal } from '../../../redux/searchModal'
 import { RootState } from '../../../redux/store'
 import { callAxios } from '../../../utils/axios'
 import { API_BASE_URL } from '../../../utils/env'
-import Element from './Element'
+import Ticket from './Ticket'
+import Board from './Board'
 
 
 export default () => {
 
+   const { showBoardsSearchModal } = useSelector((state: RootState) => state.showBoardsSearchModal)
    const { searchModal } = useSelector((state: RootState) => state.searchModal)
 
    const dispatch = useDispatch()
@@ -22,22 +25,21 @@ export default () => {
    const [ boards, setBoards ] = useState<IBoard[]>()
    const [ tickets, setTickets ] = useState<ITicket[]>()
 
-   const [ showBoards, setShowBoards ] = useState(false)
    const [ showTickets, setShowTickets ] = useState(false)
    const [ showAllSearches, setShowAllSearches ] = useState(true)
 
 
    const handleEvent = (element: string) => {
 
-      if (element == 'showBoards') {
-         setShowBoards(true)
+      if (element == 'showBoards' || showBoardsSearchModal === true) {
+         dispatch(setShowBoardsSearchModal(true))
          setShowTickets(false)
          setShowAllSearches(false)
       }
 
       if (element == 'showTickets') {
          setShowTickets(true)
-         setShowBoards(false)
+         dispatch(setShowBoardsSearchModal(false))
          setShowAllSearches(false)
       }
    }
@@ -51,7 +53,6 @@ export default () => {
       TICKETS = 'from Tickets',
       BOARDS = 'from Boards',
    }
-
 
 
    useEffect(() => {
@@ -92,13 +93,18 @@ export default () => {
       <div className="search-modal__wrapper">
          <Modal
             open={searchModal}
-            onClose={() => dispatch(setSearchModal(false))}
+            onClose={() => {
+               dispatch(setSearchModal(false))
+               setShowAllSearches(true)
+               setShowTickets(false)
+               dispatch(setShowBoardsSearchModal(false))
+            }}
          >
             <div className="search-modal">
                <Box>
                   <div className="search-modal__categories">
                      <span
-                        className={showBoards ? 'search-modal__categories__element__is-active' :
+                        className={showBoardsSearchModal ? 'search-modal__categories__element__is-active' :
                            'search-modal__categories__element'}
                         onClick={() => handleEvent('showBoards')}>
                         Boards
@@ -116,17 +122,17 @@ export default () => {
                   </div>
                   <div className="search-modal__results__wrapper">
                      <div className="search-modal__results">
-                        {showBoards || showAllSearches ? boards?.map((board) => <Element
+                        {showBoardsSearchModal || showAllSearches ? boards?.map((board) => <Board
                            key={board.id}
                            elementUrlPath={UrlPaths.BOARD}
                            elementName={board.name}
                            elementType={elementType.BOARDS}
                            boardId={board.id}/>) : ''}
-                        {showTickets || showAllSearches ? tickets?.map((ticket) => <Element
+                        {showTickets || showAllSearches ? tickets?.map((ticket) => <Ticket
                            key={ticket.id}
-                           elementUrlPath={UrlPaths.TICKET}
-                           elementName={ticket.name}
-                           elementType={elementType.TICKETS}/>) : ''}
+                           ticketId={ticket.id}
+                        />) : ''}
+
                      </div>
                   </div>
                </Box>

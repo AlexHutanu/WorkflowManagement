@@ -4,15 +4,19 @@ import { useNavigate } from 'react-router-dom'
 import { HttpMethods } from '../../constants/httpsMethods'
 import { UrlPaths } from '../../constants/urlPaths'
 import BoardIcon from '../../icons/BoardIcon'
+import PlusIcon from '../../icons/PlusIcon'
 import ProjectIcon from '../../icons/ProjectIcon'
 import TicketIcon from '../../icons/TicketIcon'
 import { IUser } from '../../interfaces/User'
+import { setCreateBoardModal } from '../../redux/createBoardModal'
 import { setSearchModal } from '../../redux/searchModal'
 import { RootState } from '../../redux/store'
 import { callAxios } from '../../utils/axios'
+import { setShowBoardsSearchModal } from '../../redux/showBoardsSearchModal'
 import { API_BASE_URL } from '../../utils/env'
 import { isTokenValid } from '../../utils/jwt'
 import { deleteFromLocalStorage } from '../../utils/localStorage'
+import CreateBoardModal from '../Modals/CreateBoard'
 
 
 export default () => {
@@ -22,6 +26,8 @@ export default () => {
    const [ user, setUser ] = useState<IUser>()
 
    const { searchModal } = useSelector((state: RootState) => state.searchModal)
+   const { createBoardModal } = useSelector((state: RootState) => state.createBoardModal)
+   const { showBoardsSearchModal } = useSelector((state: RootState) => state.showBoardsSearchModal)
 
    const dispatch = useDispatch()
 
@@ -49,6 +55,7 @@ export default () => {
             <p className="desktop-nav-bar__upper-section__title" onClick={() => navigate('/')}>
                Workflow Manager
             </p>
+            <CreateBoardModal/>
          </div>
          <div className="desktop-nav-bar__lower-section">
             <div className="desktop-nav-bar__lower-section__profile">
@@ -84,12 +91,27 @@ export default () => {
                   </p>
                </div>
                <div className="desktop-nav-bar__lower-section__links__element"
-                    onClick={() => dispatch(setSearchModal(!searchModal))
+                    onClick={() => {
+                       dispatch(setSearchModal(!searchModal))
+                       dispatch(setShowBoardsSearchModal(true))
+                    }
                     }>
                   <TicketIcon/>
                   <p className="desktop-nav-bar__lower-section__links__element__name"
                   >
                      Boards
+                  </p>
+               </div>
+               <div className="desktop-nav-bar__lower-section__links__element"
+                    id="create-board-button"
+                    onClick={() => {
+                       dispatch(setCreateBoardModal(!createBoardModal))
+                    }
+                    }>
+                  <p className="desktop-nav-bar__lower-section__links__element__name"
+                     id="create-board-button__name"
+                  >
+                     Create Board
                   </p>
                </div>
             </div>

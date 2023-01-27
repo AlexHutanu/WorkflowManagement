@@ -1,20 +1,23 @@
-import { Box, Button, Modal } from '@mui/material'
-import { useState } from 'react'
+import { Box, Modal } from '@mui/material'
+import { useDispatch, useSelector } from 'react-redux'
+import { setCreateBoardModal } from '../../../redux/createBoardModal'
+import { RootState } from '../../../redux/store'
 import BoardForm from '../../Forms/BoardForm'
 
 
 export default () => {
 
-   const [ open, setOpen ] = useState<boolean>(false)
+   const { createBoardModal } = useSelector((state: RootState) => state.createBoardModal)
 
-   const handleOpen = () => setOpen(true)
-   const handleClose = () => setOpen(false)
+   const dispatch = useDispatch()
+
+
    return (
       <div className="create-board-modal">
-         <Button onClick={handleOpen}>Create new board</Button>
          <Modal
-            open={open}
-            onClose={handleClose}
+            open={createBoardModal}
+            onClose={() => dispatch(setCreateBoardModal(false))}
+            disableAutoFocus={true}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
          >
@@ -25,5 +28,6 @@ export default () => {
             </div>
          </Modal>
       </div>
-   )
+
+)
 }

@@ -1,5 +1,5 @@
 import { Box, Modal } from '@mui/material'
-import { useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { HttpMethods } from '../../constants/httpsMethods'
 import { UrlPaths } from '../../constants/urlPaths'
 import { ITicket } from '../../interfaces/Ticket'
@@ -9,7 +9,7 @@ import { API_BASE_URL } from '../../utils/env'
 import TicketForm from '../Forms/TicketForm'
 
 
-export default ({ ticketId }: { ticketId: string }) => {
+export default ({ ticketId, setUpdateTickets }: { ticketId: string, setUpdateTickets: Dispatch<SetStateAction<boolean>> }) => {
 
    const [ticket, setTicket] = useState<ITicket>();
    const [open, setOpen] = useState(false);
@@ -60,6 +60,7 @@ export default ({ ticketId }: { ticketId: string }) => {
                       handleClose={handleClose}
                       ticketData={ticket!}
                       createMode={false}
+                      setUpdateTickets={setUpdateTickets}
                   />
               </Box>
           </div>

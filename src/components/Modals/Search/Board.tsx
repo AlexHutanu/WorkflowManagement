@@ -1,6 +1,5 @@
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import BoardIcon from '../../../icons/BoardIcon'
 import { setBoardId } from '../../../redux/boardId'
 import { setSearchModal } from '../../../redux/searchModal'
 

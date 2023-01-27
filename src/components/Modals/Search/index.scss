@@ -9,8 +9,8 @@
   width: 70rem;
   height: 50rem;
   border-radius: 1rem;
-  border: 1px solid grey;
   background-color: white;
+  overflow: hidden;
 
   &__categories {
     display: flex;
@@ -27,6 +27,8 @@
       font-size: 3rem;
       cursor: pointer;
       transition: .2s ease-in-out;
+      color: $light-blue;
+      font-weight: 500;
 
       &:hover {
         background-color: #f3f3f3;
@@ -41,7 +43,9 @@
         font-size: 3rem;
         cursor: pointer;
         transition: .2s ease-in-out;
-        background-color: #f3f3f3;
+        background-color: $light-blue;
+        color: white;
+        font-weight: 500;
       }
     }
   }
@@ -51,12 +55,22 @@
     justify-content: center;
 
     & input {
-      width: 90%;
+      width: 60%;
+      height: 4rem;
+      margin: 1rem;
       font-size: 2rem;
       box-sizing: border-box;
+      border: none;
+      border-bottom: 1px solid $light-blue;
+
+      &::placeholder {
+        color: $light-blue;
+      }
 
       &:focus {
-        border: 1px solid red;
+        outline: none;
+        border: none;
+        border-bottom: 1px solid $light-blue;
       }
 
     }
@@ -101,10 +115,13 @@
 
   &__name {
     font-size: 2rem;
+    color: $light-blue;
+    font-weight: 500;
   }
 
   &__provenance {
     font-size: 1.2rem;
+    color: $light-blue;
     padding-left: 1rem;
   }
 }
@@ -114,6 +131,7 @@
 }
 
 ::-webkit-scrollbar {
+  display: none;
   width: 10px;
 }
 

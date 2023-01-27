@@ -7,8 +7,8 @@
   width: 25rem;
   height: 100vh;
   gap: 5rem;
-  color: white;
-  background-color: $light-blue;
+  color: $light-blue;
+  background-color: $white;
 
   &__upper-section {
     display: flex;
@@ -21,7 +21,7 @@
       font-size: 2rem;
       font-weight: 700;
       cursor: pointer;
-      color: white;
+      color: $light-blue;
     }
   }
 
@@ -48,19 +48,19 @@
           width: 12rem;
           height: 12rem;
           object-fit: cover;
-          border: 2px solid white;
-          box-shadow: 0 0rem 1rem white;
+          border: 2px solid $light-blue;
+          box-shadow: 0 0rem 1rem $light-blue;
         }
       }
 
       &__name {
         font-size: 2rem;
-        color: white;
+        color: $light-blue;
         font-weight: 500;
       }
 
       &__mail-address {
-        color: white;
+        color: $light-blue;
         font-size: 1.5rem;
 
       }
@@ -70,6 +70,8 @@
       display: flex;
       flex-direction: column;
       gap: 2rem;
+      justify-content: center;
+      align-items: center;
 
       &__element {
         transition: .2s;
@@ -82,15 +84,16 @@
         width: 20rem;
         height: 5rem;
         border-radius: 2rem;
-        background-color: $white;
+        background-color: $light-blue;
 
         &__name {
           font-size: 2.5rem;
-          color: black;
+          color: white;
+          font-weight: 500;
         }
 
         & svg {
-          color: black;
+          color: white;
         }
 
         &:hover {
@@ -106,5 +109,14 @@
         }
       }
     }
+  }
+}
+
+#create-board-button {
+  width: 15rem;
+  height: 3rem;
+
+  &__name {
+    font-size: 1.5rem;
   }
 }

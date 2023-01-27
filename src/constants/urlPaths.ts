@@ -7,7 +7,6 @@ export enum UrlPaths {
    TICKETS = '/tickets',
    TICKET = '/tickets/ticket',
    USERS = '/users',
-   USER = '/users/user',
    LOGGED_USER = '/user'
 
 }

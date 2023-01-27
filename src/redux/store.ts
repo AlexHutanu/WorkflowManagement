@@ -2,12 +2,16 @@ import { configureStore } from '@reduxjs/toolkit'
 
 import boardId from './boardId'
 import searchModal from './searchModal'
+import createBoardModal from './createBoardModal'
+import showBoardsSearchModal from './showBoardsSearchModal'
 
 
 const store = configureStore({
    reducer: {
       boardId,
-      searchModal
+      searchModal,
+      createBoardModal,
+      showBoardsSearchModal
    }
 })
 

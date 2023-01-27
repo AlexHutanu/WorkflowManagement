@@ -1,4 +1,7 @@
 .tickets-page {
+  display: flex;
+  flex-direction: column;
+  gap: 10rem;
   height: 100%;
   width: 100%;
 

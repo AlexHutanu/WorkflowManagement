@@ -10,8 +10,8 @@ export const ticketType1 = (type: number | undefined) => {
 }
 
 export const ticketType = {
-   '0': 'Bug Ticket',
-   '1': 'To do',
+   '0': 'Task',
+   '1': 'Bug Ticket',
    '2': 'Feature Request'
 }
 

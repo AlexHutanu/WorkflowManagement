@@ -11,18 +11,18 @@
     width: 85rem;
     height: 50rem;
     border-radius: 1rem;
-    border: 1px solid grey;
     background-color: white;
   }
 
   &__create-button {
     width: 20rem;
     height: 3rem;
-    color: #343434;
+    color: white;
+    font-weight: 550;
     font-size: 1.5rem;
     cursor: pointer;
-    background-color: #ffffff;
-    border: 1px solid grey;
+    background-color: $light-blue;
+    border: none;
     border-radius: 2rem;
   }
 }

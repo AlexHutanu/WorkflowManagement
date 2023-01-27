@@ -5,53 +5,53 @@ export enum TicketLabel {
 
 export enum TicketType {
    BUG_TICKET = 'Bug Ticket',
-   TO_DO = 'To Do',
+   TASK = 'Task',
    FEATURE_REQUEST = 'Feature Request'
 }
 
 export enum TicketStatus {
-   TO_DO = 'To do',
+   TO_DO = 'To Do',
    IN_PROGRESS = 'In Progress',
    DONE = 'Done'
 }
 
 export const TicketStatuses = {
    [TicketStatus.TO_DO]: {
-      value: 'To Do',
+      value: TicketStatus.TO_DO,
       valueNumber: 0
    },
    [TicketStatus.IN_PROGRESS]: {
-      value: 'In Progress',
+      value: TicketStatus.IN_PROGRESS,
       valueNumber: 1
    },
    [TicketStatus.DONE]: {
-      value: 'Done',
+      value: TicketStatus.DONE,
       valueNumber: 2
    }
 }
 
 export const TicketLabelsStatuses = {
    [TicketLabel.FRONT_END]: {
-      value: "Frontend",
+      value: TicketLabel.FRONT_END,
       valueNumber: 0
    },
    [TicketLabel.BACK_END]: {
-      value: "Backend",
+      value: TicketLabel.BACK_END,
       valueNumber: 1
    }
 }
 
 export const TicketTypeStatuses = {
-   [TicketType.TO_DO]: {
-      value: 'To Do',
+   [TicketType.TASK]: {
+      value: TicketType.TASK,
       valueNumber: 0
    },
    [TicketType.BUG_TICKET]: {
-      value: "Bug Ticket",
+      value: TicketType.BUG_TICKET,
       valueNumber: 1
    },
    [TicketType.FEATURE_REQUEST]: {
-      value: "Feature Request",
+      value: TicketType.FEATURE_REQUEST,
       valueNumber: 2
    }
 }
@@ -63,7 +63,7 @@ export const TicketStatusNumber = {
 }
 
 export const TicketTypeNumber = {
-   0: TicketType.TO_DO,
+   0: TicketType.TASK,
    1: TicketType.BUG_TICKET,
    2: TicketType.FEATURE_REQUEST
 }

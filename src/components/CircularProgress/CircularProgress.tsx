@@ -11,7 +11,7 @@ export default ({ noTickets, noTotalTickets, ticketStatus}: { noTickets: number,
                   position: `${(noTickets / noTotalTickets) * 100 < 1 ? 'absolute' : 'relative'}`,
                   top: `${(noTickets / noTotalTickets) * 100 < 1 ? '-4rem' : 'unset'}`,
                   color: `${(noTickets / noTotalTickets) * 100 < 1 ? '#5d8bf4' : 'white'}`
-               }}>{(noTickets / noTotalTickets) * 100}%</p>
+               }}>{((noTickets / noTotalTickets) * 100).toFixed(0)}%</p>
             </div>
          </div>
          <p>{ticketStatus}</p>
